@@ -5,7 +5,7 @@ import * as Rx from "rxjs/Rx";
 
 @Injectable()
 export class BaseService {
-	private apiUrl = '';
+	private apiUrl = '/sdfsdfsdf';
 	public guestToken = null;
 	public isLoggedIn = false;
 	public guestRequested = false;
