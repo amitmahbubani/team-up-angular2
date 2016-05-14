@@ -3,7 +3,27 @@ import { Http } from '@angular/http';
 
 @Component({
 	selector: 'main-component',
-	template: `<h1>AngularAttack 2016</h1><p>Your project runs!-Team</p>`,
+	template: `
+		<div class="header">
+			<div class="jumbotron">
+				<div class="top-nav container">
+					<div class="row col-xs-12">
+						<div class="logo">
+							<img src="/app/assets/images/logo-white.png"/>
+						</div>
+						<div class="nav-links">
+							<a href=""><span class="nav-link">CREATE A TEAM</span></a>
+							<a href=""><span class="nav-link">LOGIN</span></a>
+							<a href=""><span class="nav-link">SIGNUP</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+	`,
 })
+
 export class AppComponent {
 }
