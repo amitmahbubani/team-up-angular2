@@ -3,10 +3,13 @@ import { Component } from '@angular/core';
 import {ROUTER_DIRECTIVES, RouteConfig, AsyncRoute} from '@angular/router-deprecated';
 import {HeaderComponent} from './components/header/header.component'
 import {FooterComponent} from './components/footer/footer.component'
+import {Http, HTTP_PROVIDERS} from '@angular/http';
+
 
 @Component({
 	selector: 'main-component',
 	templateUrl: 'app/mainBody.html',
+	viewProviders: [HTTP_PROVIDERS],
 	directives: [ROUTER_DIRECTIVES, HeaderComponent, FooterComponent]
 }) 
 @RouteConfig([
@@ -28,4 +31,14 @@ import {FooterComponent} from './components/footer/footer.component'
 	})
 ])
 export class AppComponent {
+	public people;
+	constructor(http: Http) {
+		http.get('people.json')
+			// Call map on the response observable to get the parsed people object
+			.map(res => res.json())
+			// Subscribe to the observable to get the parsed people object and attach it to the
+			// component
+			.subscribe(people => this.people = people);
+	}
+
 }
