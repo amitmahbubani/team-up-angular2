@@ -40,7 +40,7 @@ export class BaseService {
 		.map(res=> {
 			if (res.success === true) {
 					this.guestRequestCount = 0;
-					Cookie.setCookie('auth', res.response.access_token, 1);
+					Cookie.setCookie('auth', res.response.access_token, 7);
 					this.guestRequested = false;
 					return res.response;
 				} else {
@@ -53,7 +53,7 @@ export class BaseService {
 	updateAuthorization(isAuthorized){
 		if (!isAuthorized) {
 			this.isLoggedIn = false;
-			Cookie.deleteCookie('auth');
+			//Cookie.deleteCookie('auth');
 			Cookie.deleteCookie('isAuthorized');
 		} else {
 			this.isLoggedIn = true;
