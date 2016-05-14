@@ -9,7 +9,9 @@ var user = function () {
         profile: function (id, callback) {
             var userModel = require(dataPath.user);
             if (userModel.hasOwnProperty(id)) {
-                callback(null, userModel[id]);
+                var obj = userModel[id];
+                obj.id = id;
+                callback(null, obj);
             } else {
                 callback({
                     err: "No such user found",
