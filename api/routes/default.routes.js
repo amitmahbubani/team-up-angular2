@@ -1,12 +1,10 @@
 var router = require('express').Router();
 
-
-router.get('/', function (req, res) {
-    res.end('Default user');
-});
-
-router.post('/login', function (req, res) {
-    
+router.all('/guest', function (req, res, next) {
+    req.apiResponse = {
+        access_token: Math.random().toString(36).substr(2)
+    };
+    next();
 });
 
 module.exports = router;

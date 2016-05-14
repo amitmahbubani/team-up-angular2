@@ -91,7 +91,6 @@ app.use(function (req, res, next) {
     req.parsedParams = params;
     next();
 });
-app.use('/', publicRoutes);
 app.use(function (req, res, next) {
     if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
         req.is_authorized = true
@@ -99,7 +98,13 @@ app.use(function (req, res, next) {
     } else {
         req.is_authorized = false;
     }
-    if (!req.is_authorized) {
+    next();
+});
+app.use('/', publicRoutes);
+app.use('/user', userRoutes);
+app.use('/event', eventRoutes);
+app.use(function (req, res, next) {
+    if (!req.is_authorized && req.is_authorized_page) {
         req.apiResponse = {
             error: {
                 err: "Not authorized",
@@ -109,11 +114,7 @@ app.use(function (req, res, next) {
     }
     next();
 });
-app.use('/user', userRoutes);
-app.use('/event', eventRoutes);
-
 app.use(function (req, res, next) {
-
     if (!req.apiResponse) {
         next();
     } else {
