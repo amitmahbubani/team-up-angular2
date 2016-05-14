@@ -1,4 +1,28 @@
 $header-height: 308px;
+$footer-height: 60px;
+
+html,
+body {
+  height: 100%;
+}
+
+.page-wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 -60px;
+}
+
+.footer {
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
+
+  .footer-link {
+    font-size: 10px;
+    margin-right: 12px;
+  }
+}
 
 .header {
   // background: url('/app/assets/images/banner-image.png') no-repeat center center;
