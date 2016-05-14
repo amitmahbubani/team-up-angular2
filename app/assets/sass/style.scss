@@ -45,6 +45,7 @@ body {
   	.logo {
   		float: left;
   		height: 62px;
+      cursor: pointer;
 
   		img {
   			height: 100%;
@@ -100,9 +101,9 @@ body {
 
     .search-suggestions {
       background-color: #F5F5F5;
-      border: 1px solid black;
+      border: 1px solid #C5C5C5;
       text-align: left;
-      border-top: 0;
+      border-top: none;
       max-height: 185px;
       overflow-y: scroll;
 
@@ -111,7 +112,7 @@ body {
         line-height: 44px;
 
         padding-left: 18px;
-        border-top: 1px solid #444;
+        border-top: 1px solid #C5C5C5;
         
       }
 
