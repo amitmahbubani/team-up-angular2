@@ -1,6 +1,20 @@
 {
   "int1": {
     "name": "Interest 1",
-    "image_url": ""
+    "image_url": "",
+    "questions": [
+      {
+        "id": "ques1",
+        "title": "Are you male?",
+        "type": "boolean",
+        "mandatory": true
+      },
+      {
+        "id": "ques2",
+        "title": "Near by of",
+        "type": "text",
+        "mandatory": false
+      }
+    ]
   }
 }

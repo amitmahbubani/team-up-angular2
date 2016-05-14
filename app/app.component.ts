@@ -28,6 +28,14 @@ import {Http, HTTP_PROVIDERS} from '@angular/http';
 			return System.import('compiled/components/createEvent/createEvent.component.js')
 				.then(m => m.CreateEventComponent);
 		}
+	}),
+	new AsyncRoute({
+		path: '/activity',
+		name: 'Activity',
+		loader: () => {
+			return System.import('compiled/components/activity/activity.component.js')
+				.then(m => m.ActivityComponent);
+		}
 	})
 ])
 export class AppComponent {
