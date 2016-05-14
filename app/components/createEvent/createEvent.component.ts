@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {EventService} from '../common/event.service';
 import {UserService} from '../common/user.service'
 
@@ -11,14 +11,15 @@ import {UserService} from '../common/user.service'
 })
 export class CreateEventComponent {
 	public userResponse = {};
-	constructor(public userService: UserService, private eventService: EventService) {
+	constructor(public userService: UserService, private eventService: EventService, private router:Router) {
 		this.userResponse = this.eventService.userResponse;
 	}
 	createEvent(){
 		this.eventService.createEvent(this.userResponse).subscribe(
 			data => {
 				if (data.success) {
-					
+					alert("We will get back to you soon, when we team up with a partner!");
+					this.router.navigate(['Home']);
 				} else {
 					//TBD
 				}

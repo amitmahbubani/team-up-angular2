@@ -5,9 +5,9 @@
 		</div>
 		<div class="search-box">
 			<div class="input-group input-group-lg">
-			  <input type="text" class="form-control" placeholder="start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()">
+			  <input type="text" class="form-control" placeholder="start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()" (focus)="showSuggestions=true" (blur)="showSuggestions=false">
 			</div>
-			<div class="search-suggestions">
+			<div class="search-suggestions" *ngIf="showSuggestions">
 				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 1</div>
 				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 2</div>
 				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 3</div>
