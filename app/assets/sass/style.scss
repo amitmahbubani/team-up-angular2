@@ -66,10 +66,15 @@ body {
   			border: 1px solid transparent;
   		}
 
+      a:hover { 
+        text-decoration: none;
+      }
+
   		a:hover .nav-link {
   			font-size: 12px;
   			color: #AACEFF;
   			border: 1px solid #AACEFF;
+        border-radius: 2px;
   			text-decoration: none;
   		}
   	}
