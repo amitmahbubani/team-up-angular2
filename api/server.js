@@ -79,6 +79,11 @@ var publicRoutes = require('./routes/default.routes')
     , eventRoutes = require('./routes/event.routes');
 
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    next();
+});
 app.use(serveFavicon(__dirname + '/../app/assets/images/logo.png'));
 app.use(function (req, res, next) {
     var params = req.params;

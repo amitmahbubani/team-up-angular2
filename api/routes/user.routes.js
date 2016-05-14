@@ -1,7 +1,7 @@
 var router = require('express').Router();
 
 //Models
-var userModel = require(__dirname + '/../models/user');
+var userModel = require(__dirname + '/../models/user.model');
 
 router.use(function (req, res, next) {
     req.is_authorized_page = true;
