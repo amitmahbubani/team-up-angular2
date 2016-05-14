@@ -124,3 +124,23 @@ body {
   }
 
 }
+
+.activity-container {
+  padding-top: 40px;
+  height: 100%;
+
+  .activity-header {
+    .activity-title {
+      font-size: 18px;
+      color: #cd3232;
+    }
+  }
+
+  .activity-questions {
+    margin-top: 20px;
+    .input-group {
+      margin-top: 10px;
+    }
+  }
+
+}
