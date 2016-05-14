@@ -3,5 +3,9 @@ npm-debug.log
 src/app/**/*.js
 src/app/**/*.js.map
 
+src/app/assets/css/**/*.css
+compiled/
+typings/
+
 #IDE files
 .idea

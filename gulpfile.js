@@ -2,16 +2,22 @@
 
 var gulp = require('gulp'),
     sass = require('gulp-sass'), 
-    tsc = require('gulp-tsc');
+    tsc = require('gulp-typescript'),
+    webserver = require('gulp-webserver');
 
 var paths = {
 	sass_src: 'app/assets/sass/**/*.scss',
+	css_dest: 'app/assets/css/',
 	tsc_src: 'app/**/*.ts',
-	tsc_dest: '',
+	tsc_dest: 'compiled/',
 	
 };
 
-gulp.task('styles'), function() {
+var tsConfig = require('./tsconfig.json');
+var tsOptions = tsc.createProject(tsConfig.compilerOptions);
+
+
+gulp.task('styles', function() {
 	return gulp.src(paths.sass_src)
 	.pipe(sass({
 		outputStyle: 'compressed'
@@ -25,11 +31,18 @@ gulp.task('scripts', function() {
 		.pipe(gulp.dest(paths.tsc_dest))
 });
 
+gulp.task('runserver', function() {
+  gulp.src('./')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: false,
+      open: true
+    }));
+});
+
 gulp.task('watch', function() {
 	gulp.watch(paths.sass_src, ['styles']);
 	gulp.watch(paths.tsc_src, ['scripts']);
 });
 
-gulp.task('default', function() {
-	
-});
+gulp.task('default', ['scripts', 'styles', 'watch', 'runserver']);
