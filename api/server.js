@@ -17,10 +17,10 @@ app.listen(config.port, function (err) {
     createMysqlConnection(function (err) {
         "use strict";
         if (err) {
-            console.log('Mysql Connection failed');
+            utils.logMessage('Mysql Connection failed');
             process.exit();
         } else {
-            console.log('Mysql connected');
+            utils.logMessage('Mysql connected');
         }
     });
 

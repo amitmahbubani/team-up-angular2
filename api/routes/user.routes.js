@@ -4,15 +4,12 @@ var router = require('express').Router();
 var userModel = require(__dirname + '/../models/user');
 
 router.use(function (req, res, next) {
-    console.log('In auth');
     req.isAuthorized = true;
     next();
 });
 
 router.get('/profile', function (req, res, next) {
-    console.log("In profile");
     if (!req.isAuthorized) {
-        console.log("Not authorized");
         req.apiResponse = {
             error: {
                 err: "Not authorized",
