@@ -3,6 +3,7 @@ import {BaseService} from './base.service';
 
 @Injectable()
 export class EventService {
+	public eventResultList = [];
 	constructor(private baseService: BaseService) {
 
 	}

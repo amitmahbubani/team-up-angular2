@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {EventService} from '../common/event.service';
 import {UserService} from '../common/user.service'
 
@@ -7,14 +7,13 @@ import {UserService} from '../common/user.service'
 	selector: 'activity-component',
 	templateUrl: 'app/components/activity/activity.html',
 	directives: [ROUTER_DIRECTIVES],
-	providers: [EventService]
 })
 export class ActivityComponent {
 	public selectedInterest = {};
 	public response = {
 		id: null
 	}
-	constructor(public userService:UserService, private eventService: EventService){
+	constructor(public userService:UserService, private eventService: EventService, private router: Router){
 		this.selectedInterest = this.userService.selectedInterest;
 		this.response.id = this.selectedInterest['id'];
 		this.createPostResponseStrcuture(this.selectedInterest['questions']);
@@ -28,7 +27,9 @@ export class ActivityComponent {
 		this.eventService.findPartner(this.response).subscribe(
 			data => {
 				if (data.success) {
-					
+					this.eventService.eventResultList = data.response;
+					this.router.navigate(['Result']);
+
 				} else {
 					//TBD
 				}
