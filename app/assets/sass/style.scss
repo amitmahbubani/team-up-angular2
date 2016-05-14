@@ -72,8 +72,52 @@ body {
   			text-decoration: none;
   		}
   	}
-
   }
+}
+
+
+.home-container { 
+
+  padding-top: 40px;
+  height: 100%;
+
+  .search {
+    text-align: center;
+
+    .search-title {
+      font-size: 22px;
+      color: #888;
+      text-transform: uppercase;
+    }
+    .search-box {
+      display: inline-block;
+      width: 400px;
+
+      .input-group {
+        width: 100%;
+      }
+    }
+
+    .search-suggestions {
+      background-color: #F5F5F5;
+      border: 1px solid black;
+      text-align: left;
+      border-top: 0;
+      max-height: 185px;
+      overflow-y: scroll;
+
+      .suggestion {
+        height: 44px;
+        line-height: 44px;
+
+        padding-left: 18px;
+        border-top: 1px solid #444;
+        
+      }
+
+    }
+  }
+
 
 
 }
