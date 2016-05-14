@@ -6,7 +6,6 @@ import {HelperService} from '../common/helper.service'
 	selector: 'home-component',
 	templateUrl: 'app/components/home/home.html',
 	directives: [ROUTER_DIRECTIVES],
-	providers : [HelperService]
 })
 export class HomeComponent {
 	constructor(private helperService: HelperService){
