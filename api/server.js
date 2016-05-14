@@ -1,8 +1,12 @@
 var express = require('express')
     , app = express()
-    , config = require('./config.json')
     , bodyParser = require('body-parser')
     , mysql = require('mysql');
+
+
+//Utility objects
+var config = require('./config.json')
+    , utils = require('./utils');
 
 app.locals.mysqlConn = {};
 app.locals.mysqlConnectionStatus = false;
@@ -22,12 +26,6 @@ app.listen(config.port, function (err) {
 
     console.log("Server initiated at: " + config.port);
 });
-function logMessage(msg, obj) {
-    console.log(msg);
-    if (obj) {
-        console.log(obj);
-    }
-}
 
 function createMysqlConnection(callback) {
     "use strict";
@@ -49,7 +47,7 @@ function createMysqlConnection(callback) {
 
     app.locals.mysqlConn.on('error', function (err) {
         "use strict";
-        logMessage('Mysql Connection lost', err);
+        utils.logMessage('Mysql Connection lost', err);
     });
 
     app.locals.mysqlConn.on('end', function (err) {
@@ -57,14 +55,14 @@ function createMysqlConnection(callback) {
 
         app.locals.mysqlConnectionStatus = false;
         if (err) {
-            logMessage('Connection end error', err);
+            utils.logMessage('Connection end error', err);
         }
         setTimeout(function () {
             createMysqlConnection(function (err) {
                 if (err) {
-                    logMessage('Reconnecting to mysql caused an error', err);
+                    utils.logMessage('Reconnecting to mysql caused an error', err);
                 } else {
-                    logMessage('Mysql Connection restablished.');
+                    utils.logMessage('Mysql Connection restablished.');
                 }
             });
         }, config.mysql.reconnectInterval || 2000);
@@ -78,6 +76,38 @@ var publicRoutes = require('./routes/default.routes')
     , eventRoutes = require('./routes/event.routes');
 
 app.use(bodyParser.json());
+app.use(function (req, res, next) {
+    var params = req.params;
+    var queryString = req.query;
+    for (key in queryString) {
+        params[key] = queryString[key];
+    }
+    req.parsedParams = params;
+    next();
+});
 app.use('/', publicRoutes);
 app.use('/user', userRoutes);
 app.use('/event', eventRoutes);
+
+app.use(function (req, res, next) {
+    if (!req.apiResponse) {
+        next();
+    } else {
+        if (req.apiResponse.error) {
+            var error = req.apiResponse.error;
+            res.end(JSON.stringify({
+                error: error.err,
+                errorMessage: error.msg
+            }));
+        } else {
+            res.end(JSON.stringify(req.apiResponse));
+        }
+    }
+});
+//Error handler
+app.use('/', function (req, res) {
+    res.end(JSON.stringify({
+        error: "Invalid method",
+        errorMessage: "Invalid api request"
+    }));
+});
