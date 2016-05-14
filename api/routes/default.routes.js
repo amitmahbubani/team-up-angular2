@@ -7,4 +7,11 @@ router.all('/guest', function (req, res, next) {
     next();
 });
 
+router.all('/home', function(req, res, next) {
+    req.apiResponse = {
+        
+    };
+    next();
+});
+
 module.exports = router;
