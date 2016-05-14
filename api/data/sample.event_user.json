@@ -2,7 +2,18 @@
   "a": {
     "1": {
       "joined": true,
+      "request_pending": false,
       "rating": 1
+    },
+    "2": {
+      "joined": false,
+      "request_pending": true,
+      "rating": 0
+    },
+    "3": {
+      "joined": false,
+      "request_pending": false,
+      "rating": -1
     }
   }
 }

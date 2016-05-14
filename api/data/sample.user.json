@@ -8,5 +8,21 @@
     ],
     "default_location": "",
     "profile_pic": ""
+  },
+  "2": {
+    "name": "Saurabh Maurya",
+    "email": "saurabh.maurya@gmail.com",
+    "password": "abcdef",
+    "events": [],
+    "default_location": "",
+    "profile_pic": ""
+  },
+  "3": {
+    "name": "Amit mahbubani",
+    "email": "amit.mahbubani@gmail.com",
+    "password": "abcdef",
+    "events": [],
+    "default_location": "",
+    "profile_pic": ""
   }
 }
