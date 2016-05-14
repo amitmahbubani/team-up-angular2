@@ -18,7 +18,7 @@ export class BaseService {
 
 	setHeaders(token){
 		return new Headers({
-			'Authorization': 'Basic ' + btoa(token + ":"),
+			'Authorization': token,
 			'Content-Type': 'application/json',
 		});
 	}
