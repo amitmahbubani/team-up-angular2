@@ -9,15 +9,15 @@
 			<div *ngFor="let ques of selectedInterest.questions">
 				<label>{{ques.title}}</label>
 				<div class="input-group input-group-lg" *ngIf="ques.type==='text'">
-				  <input type="text" class="form-control" placeholder="" [(ngModel)]="response[ques.id]">
+				  <input type="text" class="form-control" placeholder="" [(ngModel)]="response.questions[ques.id]">
 				</div>
 				
 				<div class="input-group input-group-lg" *ngIf="ques.type==='boolean'">
 					<label class="btn btn-default">
-		              <input type="radio" (click)="response[ques.id] = true" [checked]="(response[ques.id]=== true)?true:false" /> YES
+		              <input type="radio" (click)="response.questions[ques.id] = true" [checked]="(response.questions[ques.id]=== true)?true:false" /> YES
 		            </label> 
 		            <label class="btn btn-default">
-		              <input type="radio" (click)="response[ques.id] = false" [checked]="(response[ques.id]=== true)?false:true" /> NO
+		              <input type="radio" (click)="response.questions[ques.id] = false" [checked]="(response.questions[ques.id]=== true)?false:true" /> NO
 		            </label>
 		        </div>
 		    </div>

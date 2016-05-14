@@ -1,1 +1,18 @@
 Create Event Page.
+<div>
+	Form for Other Relevant Details will be added here. 
+	If not Logged In. SHow signup modal directly.
+</div>
+<div>
+	<form action="">
+		<label>Activity Name:</label>
+		<div class="input-group input-group-lg">
+			<input type="text" class="form-control" placeholder="" [(ngModel)]="userResponse['name']">
+		</div>
+		<label>Description:</label>
+		<div class="input-group input-group-lg">
+			<input type="text" class="form-control" placeholder="" [(ngModel)]="userResponse['description']">
+		</div>
+	</form>
+</div>
+<button (click)="createEvent()">Create Event</button>

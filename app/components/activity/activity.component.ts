@@ -11,22 +11,24 @@ import {UserService} from '../common/user.service'
 export class ActivityComponent {
 	public selectedInterest = {};
 	public response = {
-		id: null
+		interest_id: null,
+		questions:{}
 	}
 	constructor(public userService:UserService, private eventService: EventService, private router: Router){
 		this.selectedInterest = this.userService.selectedInterest;
-		this.response.id = this.selectedInterest['id'];
+		this.response.interest_id = this.selectedInterest['id'];
 		this.createPostResponseStrcuture(this.selectedInterest['questions']);
 	}
 	createPostResponseStrcuture(ques){
 		for (var i = 0; i < ques.length; i++){
-			this.response[ques[i]['id']] = null;
+			this.response.questions[ques[i]['id']] = null;
 		}
 	}
 	findPartner(){
 		this.eventService.findPartner(this.response).subscribe(
 			data => {
 				if (data.success) {
+					this.eventService.userResponse = this.response;
 					this.eventService.eventResultList = data.response;
 					this.router.navigate(['Result']);
 

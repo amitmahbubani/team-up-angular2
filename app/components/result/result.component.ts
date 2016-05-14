@@ -10,8 +10,11 @@ import {UserService} from '../common/user.service'
 })
 export class ResultComponent {
 	public eventResultSet = [];
+	public currentCount = 0;
 	constructor(public userService: UserService, private eventService: EventService) {
 		this.eventResultSet = this.eventService.eventResultList;
 	}
-
+	getNextResult() {
+		this.currentCount++;
+	}
 }

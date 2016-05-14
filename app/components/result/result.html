@@ -1,2 +1,7 @@
-Result Page
-{{eventResultSet | json}}
+<div>
+{{eventResultSet[currentCount] | json}}
+</div>
+<div>
+	<button>JOIN</button><button (click)="getNextResult()" *ngIf="currentCount < (eventResultSet.length-1)">NEXT</button>
+	<button (click)="getNextResult()" *ngIf="currentCount === (eventResultSet.length-1)" [routerLink]="['CreateEvent']">CREATE EVENT</button>
+</div>
