@@ -3,6 +3,11 @@ var router = require('express').Router();
 //Models
 var userModel = require(__dirname + '/../models/user');
 
+router.use(function (req, res, next) {
+    req.is_authorized_page = true;
+    next();
+});
+
 router.all('/profile', function (req, res, next) {
     if (!req.is_authorized) {
         return next();
