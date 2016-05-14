@@ -3,16 +3,17 @@
     "name": "Event 1",
     "organiser_id": "1",
     "description": "this is a dummy event",
-    "default_location": "",
     "event_pic": "",
     "location": "Near koramangala",
     "event_start_date": "2016-05-15",
     "event_end_date": "2016-05-16",
     "interest": "int1",
-    "city": "bangalore",
-    "blocked_members": [
-      "3"
-    ],
+    "city_id": "bangalore",
+    "blocked_members": {
+      "3": {
+        "date": "2016-05-15"
+      }
+    },
     "total_likes": 1,
     "total_dislikes": 0
   }
