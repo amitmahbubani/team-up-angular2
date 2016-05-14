@@ -50,4 +50,27 @@ export class BaseService {
 		})
 		return a;
 	}
+	getRequest(url: string,params: Object = null) {
+		var serviceUrl = this.apiUrl + url;
+		var authCookie = Cookie.getCookie('auth');
+		var attachedToken = (authCookie && authCookie !== '') ? authCookie : null;
+		if (attachedToken !== null) {
+			return this.http.get(serviceUrl, {
+				headers: this.setHeaders(attachedToken)
+			}).map(res => { return res.json() })
+				.map(res => {
+					if (res.success === true) {
+						return res;
+					} else {
+						console.log("Get Request Failed", res.errors.code, res.errors.message);
+						return res;
+					}
+				});
+		} else {
+			return this.getGuestToken()
+				.map(res => { return res; })
+				.switchMap(res => { return this.getRequest(url, params); })
+		}
+
+	}
 }
