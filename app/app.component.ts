@@ -1,3 +1,4 @@
+declare var System: any;
 import { Component } from '@angular/core';
 import {ROUTER_DIRECTIVES, RouteConfig, AsyncRoute} from '@angular/router-deprecated';
 import {HeaderComponent} from './components/header/header.component'
