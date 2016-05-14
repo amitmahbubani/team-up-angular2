@@ -6,7 +6,6 @@ import {Cookie} from './cookie';
 export class BaseService {
 	private apiUrl = couponDuniaNamespace.config.apiEndpoint;
 	public guestToken = null;
-	public isAuthorized = false;
 	public isLoggedIn = false;
 	public guestRequested = false;
 	public guestRequestCount = 0;
@@ -50,6 +49,18 @@ export class BaseService {
 		})
 		return a;
 	}
+	updateAuthorization(isAuthorized){
+		if (!isAuthorized) {
+			this.isLoggedIn = false;
+			Cookie.deleteCookie('auth');
+			Cookie.deleteCookie('isAuthorized');
+		} else {
+			this.isLoggedIn = true;
+			Cookie.setCookie('isAuthorized', 'true', 14);
+		}
+
+	}
+
 	getRequest(url: string,params: Object = null) {
 		var serviceUrl = this.apiUrl + url;
 		var authCookie = Cookie.getCookie('auth');
@@ -59,6 +70,7 @@ export class BaseService {
 				headers: this.setHeaders(attachedToken)
 			}).map(res => { return res.json() })
 				.map(res => {
+					this.updateAuthorization(res.authenticated);
 					if (res.success === true) {
 						return res;
 					} else {
