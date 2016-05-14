@@ -6,8 +6,8 @@ export class HelperService {
 	constructor(private baseService: BaseService){
 
 	}
-	getHomePageData(params: Object = null) {
-		var serviceUrl: string = '/home';
+	getMachingInterest(query, params: Object = null) {
+		var serviceUrl: string = '/search?q=' +query ;
 		return this.baseService.getRequest(serviceUrl, params);
 	}
 }

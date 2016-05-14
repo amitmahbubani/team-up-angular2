@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {HelperService} from '../common/helper.service'
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
+import {HelperService} from '../common/helper.service';
+import {UserService} from '../common/user.service'
+
 
 @Component({
 	selector: 'home-component',
@@ -8,15 +10,19 @@ import {HelperService} from '../common/helper.service'
 	directives: [ROUTER_DIRECTIVES],
 })
 export class HomeComponent {
-	constructor(private helperService: HelperService){
-		this.getHomePageData();
+  public searchQuery = '';
+  public interestData = {};
+	constructor(private helperService: HelperService, private router:Router, private userService:UserService){
 	}
-	getHomePageData() {
-    this.helperService.getHomePageData().subscribe(
+	getMachingInterest() {
+    this.helperService.getMachingInterest(this.searchQuery).subscribe(
       data => {
         if (data.success) {
+          this.interestData = data.response;
+          this.userService.selectedInterest = this.interestData;
+          this.router.navigate(['Activity']);
         } else {
-         
+         //TBD
         }
       },
       err => {

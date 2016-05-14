@@ -40,7 +40,7 @@ export class BaseService {
 		.map(res=> {
 			if (res.success === true) {
 					this.guestRequestCount = 0;
-					Cookie.setCookie('auth', res.response.access_token, 1);
+					Cookie.setCookie('auth', res.response.access_token, 7);
 					this.guestRequested = false;
 					return res.response;
 				} else {
@@ -53,7 +53,7 @@ export class BaseService {
 	updateAuthorization(isAuthorized){
 		if (!isAuthorized) {
 			this.isLoggedIn = false;
-			Cookie.deleteCookie('auth');
+			//Cookie.deleteCookie('auth');
 			Cookie.deleteCookie('isAuthorized');
 		} else {
 			this.isLoggedIn = true;
@@ -85,5 +85,29 @@ export class BaseService {
 				.switchMap(res => { return this.getRequest(url, params); })
 		}
 
+	}
+	postRequest(url: string, params: Object = null) {
+		var serviceUrl = this.apiUrl + url;
+		var body = JSON.stringify(params);
+		var authCookie = Cookie.getCookie('auth');
+		var attachedToken = (authCookie && authCookie !== '') ? authCookie : null;
+		if (attachedToken !== null) {
+			return this.http.post(serviceUrl, body, {
+				headers: this.setHeaders(attachedToken)
+			}).map(res => { return res.json() })
+				.map(res => {
+					this.updateAuthorization(res.authenticated);
+					if (res.success === true) {
+						return res;
+					} else {
+						console.log("Post Request Failed", res.errors.code, res.errors.message);
+						return res;
+					}
+				})
+		} else {
+			return this.getGuestToken()
+				.map(res => { return res; })
+				.switchMap(res => { return this.postRequest(url,params); })
+		}
 	}
 }

@@ -36,6 +36,14 @@ import {Http, HTTP_PROVIDERS} from '@angular/http';
 			return System.import('compiled/components/activity/activity.component.js')
 				.then(m => m.ActivityComponent);
 		}
+	}),
+	new AsyncRoute({
+		path: '/result',
+		name: 'Result',
+		loader: () => {
+			return System.import('compiled/components/result/result.component.js')
+				.then(m => m.ResultComponent);
+		}
 	})
 ])
 export class AppComponent {
