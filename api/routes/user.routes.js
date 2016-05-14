@@ -3,25 +3,12 @@ var router = require('express').Router();
 //Models
 var userModel = require(__dirname + '/../models/user');
 
-router.use(function (req, res, next) {
-    req.isAuthorized = true;
-    if (!req.isAuthorized) {
-        req.apiResponse = {
-            error: {
-                err: "Not authorized",
-                msg: "Invalid request"
-            }
-        };
-    }
-    next();
-});
-
 router.all('/profile', function (req, res, next) {
-    if (!req.isAuthorized) {
+    if (!req.is_authorized) {
         return next();
     }
     var params = req.parsedParams;
-    userModel.profile(params.userId, function (err, result) {
+    userModel.profile(params.user_id, function (err, result) {
         if (err) {
             req.apiResponse = {
                 error: err
@@ -34,11 +21,11 @@ router.all('/profile', function (req, res, next) {
 });
 
 router.all('/events', function (req, res, next) {
-    if (!req.isAuthorized) {
+    if (!req.is_authorized) {
         return next();
     }
     var params = req.parsedParams;
-    userModel.userEvents(params.userId, function (err, result) {
+    userModel.userEvents(params.user_id, function (err, result) {
         if (err) {
             req.apiResponse = {
                 error: err

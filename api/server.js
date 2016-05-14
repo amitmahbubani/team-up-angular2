@@ -82,7 +82,20 @@ app.use(function (req, res, next) {
     for (key in queryString) {
         params[key] = queryString[key];
     }
+    params.access_token = req.header('Authorization');
     req.parsedParams = params;
+    next();
+});
+app.use(function (req, res, next) {
+    req.is_authorized = true;
+    if (!req.is_authorized) {
+        req.apiResponse = {
+            error: {
+                err: "Not authorized",
+                msg: "Invalid request"
+            }
+        };
+    }
     next();
 });
 app.use('/', publicRoutes);
@@ -93,21 +106,30 @@ app.use(function (req, res, next) {
     if (!req.apiResponse) {
         next();
     } else {
+        var response;
         if (req.apiResponse.error) {
             var error = req.apiResponse.error;
-            res.end(JSON.stringify({
+            response = {
                 error: error.err,
-                errorMessage: error.msg
-            }));
+                errorMessage: error.msg,
+                success: false
+            };
         } else {
-            res.end(JSON.stringify(req.apiResponse));
+            response = {
+                response: req.apiResponse
+            };
+            response.success = true;
         }
+        response.authenticated = req.is_authorized;
+        res.end(JSON.stringify(response));
     }
 });
 //Error handler
 app.use('/', function (req, res) {
     res.end(JSON.stringify({
         error: "Invalid method",
-        errorMessage: "Invalid api request"
+        errorMessage: "Invalid api request",
+        success: false,
+        authenticated: req.is_authorized
     }));
 });
