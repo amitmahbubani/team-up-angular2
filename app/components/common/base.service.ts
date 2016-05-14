@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Http,Headers} from '@angular/http';
 import {Cookie} from './cookie';
+import * as Rx from "rxjs/Rx";
 
 @Injectable()
 export class BaseService {
-	private apiUrl = couponDuniaNamespace.config.apiEndpoint;
+	private apiUrl = '';
 	public guestToken = null;
 	public isLoggedIn = false;
 	public guestRequested = false;
