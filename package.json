@@ -32,17 +32,13 @@
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
-<<<<<<< HEAD
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.1",
     "gulp-tsc": "^1.1.5",
     "gulp-typescript": "^2.13.4",
     "gulp-webserver": "^0.9.1",
-    "lite-server": "^2.2.0"
-=======
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10",
     "typings":"^0.8.1"
->>>>>>> 1bc12b0d6306cb394647854b1b805af9219a7d2f
   }
 }
