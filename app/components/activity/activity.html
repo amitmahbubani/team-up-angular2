@@ -1,1 +1,15 @@
 Activity Page
+<div> 
+	<div *ngFor="let ques of selectedInterest.questions">
+		<label>{{ques.title}}</label>
+		<div *ngIf="ques.type==='boolean'">
+			<input type="radio" (click)="response[ques.id] = true" [checked]="(response[ques.id]=== true)?true:false"> Yes
+  			<input type="radio" (click)="response[ques.id] = false" [checked]="(response[ques.id]=== true)?false:true"> No<br>
+  			{{response[ques.id]}}
+		</div>	
+		<div *ngIf="ques.type==='text'">
+			<input type="text" [(ngModel)]="response[ques.id]" />
+		</div>
+	</div>
+	<div><button (click)="findPartner()">Find Partner</button></div>
+</div>
