@@ -13,4 +13,12 @@ export class BaseService {
 		var isAuthorized = (authorizeCookie && authorizeCookie === 'true') ? true : false;
 		this.isLoggedIn = isAuthorized;
 	}
+
+	setHeaders(token){
+		return new Headers({
+			'Authorization': 'Basic ' + btoa(token + ":"),
+			'Content-Type': 'application/json',
+			'X-Request-Source': 'WEB'
+		});
+	}
 }
