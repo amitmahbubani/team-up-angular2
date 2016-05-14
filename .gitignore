@@ -4,3 +4,6 @@ src/app/**/*.js
 src/app/**/*.js.map
 compiled/
 typings/
+
+#IDE files
+.idea
