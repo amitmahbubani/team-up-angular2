@@ -1,0 +1,55 @@
+$header-height: 308px;
+
+.header {
+  // background: url('/app/assets/images/banner-image.png') no-repeat center center;
+  width: 100%;
+  height: $header-height;
+  z-index: -1;
+  background-color: #898D92;
+}
+
+.jumbotron {
+  height: $header-height;
+  padding-top: 0 !important;
+  color: white;
+  background-color: transparent !important;
+
+  .top-nav {
+  	padding-top: 4px;
+  	height: 62px;
+
+  	.logo {
+  		float: left;
+  		height: 62px;
+
+  		img {
+  			height: 100%;
+  		}
+  	}
+
+  	.nav-links {
+  		float:right;
+  		margin-top: 18px;
+  		font-size: 12px;
+
+  		a .nav-link {
+  			color: #eee;
+  			margin: 10px;
+  			margin-left: 15px;
+  			margin-right: 15px;
+  			padding: 10px;
+  			border: 1px solid transparent;
+  		}
+
+  		a:hover .nav-link {
+  			font-size: 12px;
+  			color: #AACEFF;
+  			border: 1px solid #AACEFF;
+  			text-decoration: none;
+  		}
+  	}
+
+  }
+
+
+}

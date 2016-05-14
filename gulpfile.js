@@ -34,7 +34,7 @@ gulp.task('scripts', function() {
 gulp.task('runserver', function() {
   gulp.src('./')
     .pipe(webserver({
-      livereload: true,
+      livereload: false,
       directoryListing: false,
       open: true
     }));
