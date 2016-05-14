@@ -7,4 +7,17 @@ import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 	directives: [ROUTER_DIRECTIVES]
 })
 export class HomeComponent {
+	getHomePageData(failedToken = null) {
+    this.helperService.getHomePageData(failedToken).subscribe(
+      data => {
+        if (data.success) {
+        } else {
+         
+        }
+      },
+      err => {
+        console.log('Error Occured', err);
+      }
+    );
+  }
 }
