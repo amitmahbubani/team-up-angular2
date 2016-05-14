@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {HelperService} from '../common/helper.service'
 
 @Component({
@@ -9,12 +9,14 @@ import {HelperService} from '../common/helper.service'
 })
 export class HomeComponent {
   public searchQuery = '';
-	constructor(private helperService: HelperService){
+  public interestData = {};
+	constructor(private helperService: HelperService, private router:Router){
 	}
 	getMachingInterest() {
     this.helperService.getMachingInterest(this.searchQuery).subscribe(
       data => {
         if (data.success) {
+          this.router.navigate(['FindEvent', { data: this.interestData }]);
         } else {
          
         }

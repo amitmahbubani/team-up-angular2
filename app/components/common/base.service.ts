@@ -86,4 +86,28 @@ export class BaseService {
 		}
 
 	}
+	postRequest(url: string, params: Object = null) {
+		var serviceUrl = this.apiUrl + url;
+		var body = JSON.stringify(params);
+		var authCookie = Cookie.getCookie('auth');
+		var attachedToken = (authCookie && authCookie !== '') ? authCookie : null;
+		if (attachedToken !== null) {
+			return this.http.post(serviceUrl, body, {
+				headers: this.setHeaders(attachedToken)
+			}).map(res => { return res.json() })
+				.map(res => {
+					this.updateAuthorization(res.authenticated);
+					if (res.success === true) {
+						return res;
+					} else {
+						console.log("Post Request Failed", res.errors.code, res.errors.message);
+						return res;
+					}
+				})
+		} else {
+			return this.getGuestToken()
+				.map(res => { return res; })
+				.switchMap(res => { return this.postRequest(url,params); })
+		}
+	}
 }
