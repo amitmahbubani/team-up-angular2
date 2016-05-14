@@ -11,6 +11,9 @@
     "outDir": "compiled"
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "bower_components",
+    "typings/main",
+    "typings/main.d.ts"
   ]
 }
