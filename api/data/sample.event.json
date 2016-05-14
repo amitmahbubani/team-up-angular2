@@ -1,0 +1,19 @@
+{
+  "a": {
+    "name": "Event 1",
+    "organiser": "1",
+    "description": "this is a dummy event",
+    "default_location": "",
+    "profile_pic": "",
+    "location": "Near koramangala",
+    "event_date": "2016-05-15_2016-05-16",
+    "image": "",
+    "interest": "b1",
+    "city": "bangalore",
+    "joinee_info": [
+      "1"
+    ],
+    "total_likes": 1,
+    "total_dislikes": 0
+  }
+}

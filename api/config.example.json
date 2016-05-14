@@ -6,7 +6,8 @@
     "port": 3306,
     "user": "root",
     "password": "root",
-    "db": "teamup"
+    "db": "teamup",
+    "reconnectInterval": 2000
   },
   "redis": {
     "host": "127.0.0.1",
