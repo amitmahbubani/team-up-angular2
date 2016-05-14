@@ -12,7 +12,7 @@ var paths = {
 };
 
 gulp.task('styles'), function() {
-	gulp.src(paths.sass_src)
+	return gulp.src(paths.sass_src)
 	.pipe(sass({
 		outputStyle: 'compressed'
 	}).on('error', sass.logError))
@@ -26,9 +26,10 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('watch', function() {
-
+	gulp.watch(paths.sass_src, ['styles']);
+	gulp.watch(paths.tsc_src, ['scripts']);
 });
 
 gulp.task('default', function() {
-
+	
 });
