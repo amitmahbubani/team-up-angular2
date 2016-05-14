@@ -1,0 +1,12 @@
+{
+  "1": {
+    "name": "Gautam Singh",
+    "email": "gtm93singh@gmail.com",
+    "password": "abcdef",
+    "events": [
+      "a"
+    ],
+    "default_location": "",
+    "profile_pic": ""
+  }
+}

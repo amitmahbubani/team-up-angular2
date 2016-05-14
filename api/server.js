@@ -1,9 +1,8 @@
-var express= require('express')
+var express = require('express')
     , app = express()
     , config = require('./config.json')
-    , bodyParser= require('body-parser')
-    , mysql = require('mysql')
-    , router = express.Router();
+    , bodyParser = require('body-parser')
+    , mysql = require('mysql');
 
 app.locals.mysqlConn = {};
 app.locals.mysqlConnectionStatus = false;
@@ -74,9 +73,11 @@ function createMysqlConnection(callback) {
 
 
 //Routes
-var userRoutes = require('./user.routes')
-    , publicRoutes = require('./default.routes');
+var publicRoutes = require('./routes/default.routes')
+    , userRoutes = require('./routes/user.routes')
+    , eventRoutes = require('./routes/event.routes');
 
 app.use(bodyParser.json());
 app.use('/', publicRoutes);
 app.use('/user', userRoutes);
+app.use('/event', eventRoutes);
