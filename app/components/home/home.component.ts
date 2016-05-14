@@ -8,11 +8,11 @@ import {HelperService} from '../common/helper.service'
 	directives: [ROUTER_DIRECTIVES],
 })
 export class HomeComponent {
+  public searchQuery = '';
 	constructor(private helperService: HelperService){
-		this.getHomePageData();
 	}
-	getHomePageData() {
-    this.helperService.getHomePageData().subscribe(
+	getMachingInterest() {
+    this.helperService.getMachingInterest(this.searchQuery).subscribe(
       data => {
         if (data.success) {
         } else {

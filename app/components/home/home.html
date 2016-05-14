@@ -5,7 +5,7 @@
 		</div>
 		<div class="search-box">
 			<div class="input-group input-group-lg">
-			  <input type="text" class="form-control" placeholder="start typing...">
+			  <input type="text" class="form-control" placeholder="start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()">
 			</div>
 			<div class="search-suggestions">
 				<div class="suggestion">Suggestion 1</div>
