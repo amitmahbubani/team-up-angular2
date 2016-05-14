@@ -5,10 +5,6 @@ var userModel = require(__dirname + '/../models/user');
 
 router.use(function (req, res, next) {
     req.isAuthorized = true;
-    next();
-});
-
-router.get('/profile', function (req, res, next) {
     if (!req.isAuthorized) {
         req.apiResponse = {
             error: {
@@ -16,13 +12,42 @@ router.get('/profile', function (req, res, next) {
                 msg: "Invalid request"
             }
         };
+    }
+    next();
+});
+
+router.all('/profile', function (req, res, next) {
+    if (!req.isAuthorized) {
         return next();
     }
     var params = req.parsedParams;
-    userModel.profile(params.id, function (err, result) {
-        req.apiResponse = result;
+    userModel.profile(params.userId, function (err, result) {
+        if (err) {
+            req.apiResponse = {
+                error: err
+            };
+        } else {
+            req.apiResponse = result;
+        }
         next();
     });
+});
+
+router.all('/events', function (req, res, next) {
+    if (!req.isAuthorized) {
+        return next();
+    }
+    var params = req.parsedParams;
+    userModel.userEvents(params.userId, function (err, result) {
+        if (err) {
+            req.apiResponse = {
+                error: err
+            }
+        } else {
+            req.apiResponse = result;
+        }
+        next();
+    })
 });
 
 module.exports = router;
