@@ -1,15 +1,18 @@
 var express = require('express')
-    , app = express()
     , bodyParser = require('body-parser')
-    , mysql = require('mysql');
+    , mysql = require('mysql')
+    , serveFavicon = require('serve-favicon');
 
+app = express();
+userSessions = {};
 
 //Utility objects
 var config = require('./config.json')
     , utils = require('./utils');
 
-app.locals.mysqlConn = {};
-app.locals.mysqlConnectionStatus = false;
+app.set('mysqlConn', {});
+app.set('mysqlConnectionStatus', false);
+
 app.listen(config.port, function (err) {
     if (err) {
         return console.log("Server init error ", err);
@@ -76,18 +79,26 @@ var publicRoutes = require('./routes/default.routes')
     , eventRoutes = require('./routes/event.routes');
 
 app.use(bodyParser.json());
+app.use(serveFavicon(__dirname + '/../app/assets/images/logo.png'));
 app.use(function (req, res, next) {
     var params = req.params;
     var queryString = req.query;
     for (key in queryString) {
         params[key] = queryString[key];
     }
-    params.access_token = req.header('Authorization');
+    params.access_token = req.header('Authorization') || params['Authorization'] || null;
+    delete params['Authorization'];
     req.parsedParams = params;
     next();
 });
+app.use('/', publicRoutes);
 app.use(function (req, res, next) {
-    req.is_authorized = true;
+    if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
+        req.is_authorized = true
+        req.parsedParams.user_id = userSessions[req.parsedParams.access_token];
+    } else {
+        req.is_authorized = false;
+    }
     if (!req.is_authorized) {
         req.apiResponse = {
             error: {
@@ -98,11 +109,11 @@ app.use(function (req, res, next) {
     }
     next();
 });
-app.use('/', publicRoutes);
 app.use('/user', userRoutes);
 app.use('/event', eventRoutes);
 
 app.use(function (req, res, next) {
+
     if (!req.apiResponse) {
         next();
     } else {
