@@ -122,6 +122,11 @@ var user = function () {
                     user_id: userId
                 });
             }
+        } else {
+            return callback({
+                err: "User does not exists",
+                msg: "Invalid email id or password"
+            });
         }
     };
 
