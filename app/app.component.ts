@@ -8,7 +8,7 @@ import {Http, HTTP_PROVIDERS} from '@angular/http';
 
 @Component({
 	selector: 'main-component',
-	templateUrl: 'app/mainBody.html',
+	templateUrl: 'app/mainbody.html',
 	viewProviders: [HTTP_PROVIDERS],
 	directives: [ROUTER_DIRECTIVES, HeaderComponent, FooterComponent]
 }) 
