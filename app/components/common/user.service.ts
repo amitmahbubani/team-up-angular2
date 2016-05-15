@@ -9,7 +9,7 @@ declare var FB: any;
 export class UserService {
 	public selectedInterest = {};
 	public userLogged = new EventEmitter();
-	public baseUrl = '/users';
+	public baseUrl = '/user';
 	public userDetails = null;
 	constructor(private baseService: BaseService, private _router: Router) {
 		console.log("User Service Created.")

@@ -1,7 +1,33 @@
-<div>
-{{eventResultSet[currentCount] | json}}
-</div>
-<div>
-	<button (click)="joinEvent(eventResultSet[currentCount].id)">JOIN</button><button (click)="getNextResult()" *ngIf="currentCount < (eventResultSet.length-1)">NEXT</button>
-	<button (click)="getNextResult()" *ngIf="currentCount === (eventResultSet.length-1)" [routerLink]="['CreateEvent']">CREATE EVENT</button>
+<div class="result-container container">
+	<div class="top-results-info">BASED ON YOUR ANSWERS, HERE ARE THE TOP RESULTS</div>
+	<div class="event-cards">
+		<div class="current-event">
+			<div class="image">
+				<img src="app/assets/images/event-image.png">
+			</div>
+			<div class="content">
+				<div class="title">{{eventResultSet[currentCount].name}}</div>
+				<div class="description">{{eventResultSet[currentCount].description}}</div>
+				<div class="row">
+					<div class="col-xs-4 data">
+						<div class="name">DATE:</div>
+						<div class="value">{{eventResultSet[currentCount].event_start_date}}</div>
+					</div>	
+					<div class="col-xs-4 data">
+						<div class="name">LOCATION:</div>
+						<div class="value">{{eventResultSet[currentCount].location}}</div>
+					</div>
+					<div class="col-xs-4 data">
+						<div class="name">INTEREST:</div>
+						<div class="value">{{eventResultSet[currentCount].interest_id}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="buttons">
+				<div class="accept-btn" (click)="joinEvent(eventResultSet[currentCount].id)">I AM INTERESTED</div><div class="create-btn" *ngIf="currentCount === (eventResultSet.length-1)" [routerLink]="['CreateEvent']">CREATE EVENT</div><div class="reject-btn" (click)="getNextResult()" *ngIf="currentCount < (eventResultSet.length-1)">NOT INTERESTED</div>
+			</div>
+		</div>
+		<div class="next-event">
+		</div>
+	</div>
 </div>
