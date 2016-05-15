@@ -44,6 +44,22 @@ import {Http, HTTP_PROVIDERS} from '@angular/http';
 			return System.import('compiled/components/result/result.component.js')
 				.then(m => m.ResultComponent);
 		}
+	}),
+	new AsyncRoute({
+		path: '/about',
+		name: 'About',
+		loader: () => {
+			return System.import('compiled/components/about/about.component.js')
+				.then(m => m.AboutComponent);
+		}
+	}),
+	new AsyncRoute({
+		path: '/help',
+		name: 'Help',
+		loader: () => {
+			return System.import('compiled/components/help/help.component.js')
+				.then(m => m.HelpComponent);
+		}
 	})
 ])
 export class AppComponent {
