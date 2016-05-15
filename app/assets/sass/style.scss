@@ -206,6 +206,54 @@ body {
       }
     }
   }
+
+  .modal-success-container {
+    width: 370px;
+    height: 330px;
+    position: relative;
+    margin: 10% auto;
+    padding: 34px;
+    border-radius: 1px;
+    background: #fff;
+
+    .image {
+      text-align: center;
+    }
+
+    .text {
+      margin-top: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      color: #898989;
+      text-align: center;
+    }
+
+    .done-btn {
+      width: 200px;
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 20px;
+      padding: 10px 20px;
+      color: #0CAFEF;
+      border: 1px solid #0CAFEF;
+      cursor: pointer;
+      transition-property: all;
+      transition-duration: .4s;
+      transition-timing-function: ease;
+    }
+    .done-btn:hover {
+      color: #FFFFFF;
+      background-color: #0CAFEF;
+      border: 1px solid #0CAFEF;
+      cursor: pointer;
+      -webkit-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+      -moz-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+      box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+      transition-property: all;
+      transition-duration: .4s;
+      transition-timing-function: ease;
+    }
+  }
 }
 
 .header {
