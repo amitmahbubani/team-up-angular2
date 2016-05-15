@@ -7,6 +7,8 @@ import {UserService} from '../common/user.service'
 	directives: [ROUTER_DIRECTIVES]
 })
 export class HeaderComponent {
+	public showLoginModal = false;
+	public showLoginSection = true;
 	constructor(public userService: UserService){
 		
 	}

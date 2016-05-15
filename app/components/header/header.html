@@ -7,7 +7,7 @@
 				</div>
 				<div class="nav-links">
 					<a [routerLink]="['CreateEvent']"><span class="nav-link">CREATE A TEAM</span></a>
-					<a href=""><span class="nav-link">LOGIN</span></a>
+					<a (click)="showLoginModal=true"><span class="nav-link">LOGIN</span></a>
 					<a href=""><span class="nav-link">SIGNUP</span></a>
 				</div>
 			</div>
@@ -22,6 +22,58 @@
 			<div class="row">
 				<div class="col-xs-3 signin-spacer">
 					<span class="signin-btn">SIGN IN</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="loginModal" class="popupModal" *ngIf="showLoginModal">
+	<div class="modal-container">
+		<a (click)="showLoginModal=false" title="Close" class="close">X</a>
+		<div class="modal-cover">
+		</div><div class="modal-data">
+			<div class="login-options">
+				<span class="active" (click)="showLoginSection=true">LOGIN</span><span (click)="showLoginSection=false">SIGN UP</span>
+			</div>
+			<div class="login-section" *ngIf="showLoginSection">
+				<div class="social-buttons">
+					<span class="facebook">Facebook</span><span class="google">Google</span>
+				</div>
+				<div class="modal-form"> 
+					<label class="text-muted">Email</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+					<label class="text-muted">Password</label>
+					<div class="input-group">
+					  <input type="password" class="form-control">
+					</div>
+					<div class="signin-spacer">
+						<span class="signin-btn">LOGIN</span>
+					</div>
+				</div>
+			</div>
+			<div class="signup-section" *ngIf="!showLoginSection">
+				<div class="social-buttons">
+					<span class="facebook">Facebook</span><span class="google">Google</span>
+				</div>
+				<div class="modal-form"> 
+					<label class="text-muted">Name</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+					<label class="text-muted">Email</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+					<label class="text-muted">Password</label>
+					<div class="input-group">
+					  <input type="password" class="form-control">
+					</div>
+					<div class="signin-spacer">
+						<span class="signin-btn">SIGN UP</span>
+					</div>
 				</div>
 			</div>
 		</div>
