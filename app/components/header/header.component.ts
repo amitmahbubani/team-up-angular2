@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {UserService} from '../common/user.service'
 @Component({
 	selector: 'header-component',
@@ -20,7 +20,7 @@ export class HeaderComponent {
 		email: ''
 	}
 	public subscription: any;
-	constructor(public userService: UserService){
+	constructor(public userService: UserService, public router:Router){
 		this.subscription = this.userService.getUserLoggedInStatus()
 			.subscribe(item => {
 				this.showLoginModal = false;
