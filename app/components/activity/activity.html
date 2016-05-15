@@ -10,7 +10,7 @@
 		</div>
 		<div class="activity-questions search">
 			<form action="">
-				<div class="question-block" *ngFor="let ques of selectedInterest.questions;#i=index">
+				<div class="question-block" *ngFor="let ques of selectedInterest.questions;let i=index">
 				<div *ngIf="i===currentCount">
 					<label class="question search-title">{{ques.title}}</label>
 					<div class="search-box">
