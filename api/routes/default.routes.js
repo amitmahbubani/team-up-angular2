@@ -104,7 +104,6 @@ router.all('/home', function (req, res, next) {
                             userEventsLookup[req.apiResponse.user_events[index].id] = true;
                         }
                         for (var index = 0; index < req.apiResponse.trending_events.length; index++) {
-                            console.log(index, req.apiResponse.trending_events[index].id, userEventsLookup[req.apiResponse.trending_events[index].id]);
                             if (userEventsLookup.hasOwnProperty(req.apiResponse.trending_events[index].id)) {
                                 req.apiResponse.trending_events.splice(index, 1);
                                 index--;
