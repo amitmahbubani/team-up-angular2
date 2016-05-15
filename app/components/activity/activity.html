@@ -21,10 +21,10 @@
 					
 					<div class="input-group input-group-lg" *ngIf="ques.type==='boolean'">
 						<label class="btn btn-default">
-			              <input type="radio" id="radio1" (click)="(response.questions[ques.id]===true)?(response.questions[ques.id]=null):(response.questions[ques.id]=true)" [checked]="response.questions[ques.id]===true" /> YES
+			              <input type="radio" name="{{ques.id}}" (click)="(response.questions[ques.id]===true)?(response.questions[ques.id]=null):(response.questions[ques.id]=true)" [checked]="response.questions[ques.id]" value="yes"/> YES
 			            </label> 
 			            <label class="btn btn-default">
-			              <input type="radio" id="radio2" (click)="(response.questions[ques.id]===false)?(response.questions[ques.id]=null):(response.questions[ques.id]=false)" [checked]="response.questions[ques.id]==	false" /> NO
+			              <input type="radio" name="{{ques.id}}" (click)="(response.questions[ques.id]===false)?(response.questions[ques.id]=null):(response.questions[ques.id]=false)" [checked]="!response.questions[ques.id]" value="no"/> NO
 			            </label>
 			        </div>
 			    </div>
