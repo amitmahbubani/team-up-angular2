@@ -12,8 +12,8 @@ import {UserService} from '../common/user.service'
 export class HomeComponent {
   public searchQuery = '';
   public interestData = {};
-  public trendingActivities = [];
-  public userJoinedActivities = [];
+  public trendingEvents = [];
+  public userJoinedEvents = [];
   public subscription: any;
 	constructor(private helperService: HelperService, private router:Router, private userService:UserService){
     this.getHomePageData();
@@ -43,6 +43,10 @@ export class HomeComponent {
     this.helperService.getHomePageData(this.searchQuery).subscribe(
       data => {
         if (data.success) {
+          this.trendingEvents = data.response.trending_events || [];
+          if(this.userService.isAuthorized()){
+            this.userJoinedEvents = data.response.user_events || [];
+          }
         } else {
           //TBD
         }

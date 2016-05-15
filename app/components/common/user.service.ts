@@ -9,8 +9,13 @@ declare var FB: any;
 export class UserService {
 	public selectedInterest = {};
 	public userLogged = new EventEmitter();
+	public baseUrl = '/users';
+	public userDetails = null;
 	constructor(private baseService: BaseService, private _router: Router) {
 		console.log("User Service Created.")
+		if (baseService.isLoggedIn) {
+			this.getUserProfileData();
+		}
 	}
 
 	isAuthorized() {
@@ -24,6 +29,7 @@ export class UserService {
 				if (data.success) {
 					Cookie.setCookie('isAuthorized', 'true', 14);
 					this.baseService.isLoggedIn = true;
+					this.getUserProfileData();
 					this.emitUserLoggedInEvent();
 				}
 				else {
@@ -41,6 +47,7 @@ export class UserService {
 				if (data.success) {
 					Cookie.setCookie('isAuthorized', 'true', 14);
 					this.baseService.isLoggedIn = true;
+					this.getUserProfileData();
 					this.emitUserLoggedInEvent();				
 				}
 				else {
@@ -90,5 +97,20 @@ export class UserService {
 		Cookie.deleteCookie('isAuthorized');
 		this.baseService.isLoggedIn = false;
 		this.emitUserLoggedInEvent();
+	}
+	getUserProfileData() {
+		var serviceUrl = this.baseUrl + '/profile';
+		return this.baseService.getRequest(serviceUrl)
+			.subscribe(
+			data => {
+				if (data.success) {
+					this.userDetails = data.response.user || null;
+				}
+				else {
+					//TBD
+				}
+			},
+			err => console.log('Error: ', err)
+			);
 	}
 }
