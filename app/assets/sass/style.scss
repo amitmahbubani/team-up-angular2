@@ -25,7 +25,8 @@ body {
 }
 
 .header {
-  // background: url('/app/assets/images/banner-image.png') no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('/app/assets/images/banner.jpg') no-repeat center center;
+  background-position-x: 0;
   width: 100%;
   height: $header-height;
   z-index: -1;

@@ -1,20 +1,28 @@
 {
   "a": {
     "name": "Event 1",
-    "organiser_id": "1",
     "description": "this is a dummy event",
     "event_pic": "",
     "location": "Near koramangala",
     "event_start_date": "2016-05-15",
     "event_end_date": "2016-05-16",
-    "interest": "int1",
-    "city_id": "bangalore",
+    "interest_id": "int1",
     "blocked_members": {
       "3": {
         "date": "2016-05-15"
       }
     },
+    "questions": {
+      "ques1": {
+        "ans": false
+      },
+      "ques2": {
+        "ans": "bangalore"
+      }
+    },
     "total_likes": 1,
-    "total_dislikes": 0
+    "total_dislikes": 0,
+    "organiser_id": 1,
+    "city_id": "bangalore"
   }
 }

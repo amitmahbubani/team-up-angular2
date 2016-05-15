@@ -5,7 +5,7 @@ var express = require('express')
 
 app = express();
 userSessions = {};
-
+model = require('./models/model');
 //Utility objects
 var config = require('./config.json')
     , utils = require('./utils');
@@ -82,7 +82,11 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
-    next();
+    if(req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
 });
 app.use(serveFavicon(__dirname + '/../app/assets/images/logo.png'));
 app.use(function (req, res, next) {
@@ -91,9 +95,13 @@ app.use(function (req, res, next) {
     for (key in queryString) {
         params[key] = queryString[key];
     }
+    for (key in req.body) {
+        params[key] = req.body[key];
+    }
     params.access_token = req.header('Authorization') || params['Authorization'] || null;
     delete params['Authorization'];
     req.parsedParams = params;
+    console.log(req.url);
     next();
 });
 app.use(function (req, res, next) {
@@ -103,7 +111,12 @@ app.use(function (req, res, next) {
     } else {
         req.is_authorized = false;
     }
-    next();
+    /*
+     To remove
+     */
+    // req.is_authorized = true
+    // req.parsedParams.user_id = 2;
+    // next();
 });
 app.use('/', publicRoutes);
 app.use('/user', userRoutes);
