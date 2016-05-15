@@ -1,18 +1,60 @@
-Create Event Page.
-<div>
-	Form for Other Relevant Details will be added here. 
-	If not Logged In. SHow signup modal directly.
-</div>
-<div>
-	<form action="">
-		<label>Activity Name:</label>
-		<div class="input-group input-group-lg">
-			<input type="text" class="form-control" placeholder="" [(ngModel)]="userResponse['name']">
+<div class="create-event-container container">
+	<div class="title text-muted text-uppercase">Create new teamup group</div>
+	<div class="create-form-container">
+		<div class="form-block">
+			<div class="row">
+				<div class="col-xs-12 block-title">BASE DETAILS</div>
+			</div>
+			<div class="block-input row">
+				<div class="col-xs-6 form-column">
+					<label class="form-label text-uppercase">ROOM TYPE</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="col-xs-6 form-column">
+					<label class="form-label text-uppercase">PLAN NAME</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+				</div>
+			</div>
 		</div>
-		<label>Description:</label>
-		<div class="input-group input-group-lg">
-			<input type="text" class="form-control" placeholder="" [(ngModel)]="userResponse['description']">
+		<div class="form-block">
+			<div class="row">
+				<div class="col-xs-12 block-title">PRICE DETAILS</div>
+			</div>
+			<div class="block-input row">
+				<div class="col-xs-6 form-column">
+					<label class="form-label text-uppercase">BASE RATE</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="col-xs-6 form-column">
+					<label class="form-label text-uppercase">NET AMOUNT</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="block-input row">
+				<div class="col-xs-6 form-column">
+					<label class="form-label text-uppercase">SELL RATE</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="col-xs-6 form-column">
+					<label class="form-label text-uppercase">TOTAL AMOUNT</label>
+					<div class="input-group">
+					  <input type="text" class="form-control">
+					</div>
+				</div>
+			</div>
 		</div>
-	</form>
+		<div class="signin-spacer text-center">
+			<div class="done-btn" (click)="createEvent()">Create Event</div>
+		</div>
+	</div>
 </div>
-<button (click)="createEvent()">Create Event</button>
