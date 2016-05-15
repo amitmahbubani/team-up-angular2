@@ -1,7 +1,4 @@
 <div class="home-container container">
-	<div class="step-count">
-		<p>STEP 1 OF 4</p>
-	</div>
 	<div class="interest-search-container">
 		<div class="search">
 			<div class="search-title">
@@ -12,7 +9,7 @@
 				  <input type="text" class="form-control" placeholder="Start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()">
 				</div>
 			</div>
-			<div class="next-btn">NEXT</div>
+			<div (click)="getMachingInterest()" class="next-btn">NEXT</div>
 		</div>
 	</div>
 </div>

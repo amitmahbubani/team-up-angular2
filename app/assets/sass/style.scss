@@ -256,64 +256,73 @@ body {
 
 
 .home-container { 
-
   padding-top: 5px;
   height: 100%;
+  margin-top: 50px;
+}
 
-  .interest-search-container {
-    border: 1px solid #aaa;
-    height: 320px;
-    padding: 20px 30px;
-    -webkit-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
-    -moz-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
-    box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
-    border-radius: 2px;
+.interest-search-container {
+  border: 1px solid #aaa;
+  padding: 20px 30px;
+  padding-bottom: 60px;
+  -webkit-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
+  -moz-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
+  box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
+  border-radius: 2px;
+}
 
-    .search {
-      .search-title {
-        font-size: 22px;
-        color: #888;
-      }
+.search {
+  .search-title {
+    font-size: 22px;
+    color: #888;
+  }
 
-      .search-box {
-        margin-top: 10px;
-        display: inline-block;
-        width: 600px;
+  .search-box {
+    margin-top: 18px;
+    width: 600px;
 
-        .input-group {
-          width: 100%;
-        }
-      }
-
-      .next-btn {
-        width: 100px;
-        text-align: center;
-        margin-top: 20px;
-        padding: 10px 20px;
-        color: #0CAFEF;
-        border: 1px solid #0CAFEF;
-        cursor: pointer;
-        transition-property: all;
-        transition-duration: .4s;
-        transition-timing-function: ease;
-      }
-      .next-btn:hover {
-        color: #FFFFFF;
-        background-color: #0CAFEF;
-        border: 1px solid #0CAFEF;
-        cursor: pointer;
-        -webkit-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
-        -moz-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
-        box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
-        transition-property: all;
-        transition-duration: .4s;
-        transition-timing-function: ease;
-      }
+    .input-group {
+      width: 100%;
     }
   }
 
-  
+  .next-btn {
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #0CAFEF;
+    border: 1px solid #0CAFEF;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: .4s;
+    transition-timing-function: ease;
+  }
+  .next-btn:hover {
+    color: #FFFFFF;
+    background-color: #0CAFEF;
+    border: 1px solid #0CAFEF;
+    cursor: pointer;
+    -webkit-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+    box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+    transition-property: all;
+    transition-duration: .4s;
+    transition-timing-function: ease;
+  }
 
+  .skip-btn {
+    color: #E65050;
+    border: 1px solid #E65050;
+  }
+
+  .skip-btn:hover {
+    color: #FFFFFF;
+    border: 1px solid #E65050;
+    background-color: #E65050;
+  }
 }
 
 .activity-container {
@@ -329,9 +338,20 @@ body {
 
   .activity-questions {
     margin-top: 20px;
-    .input-group {
-      margin-top: 10px;
+    .question-block {
+      margin-top: 20px;
+      .input-group {
+        margin-top: 10px;
+      }
     }
+    
   }
 
+}
+
+.steps-count {
+  color: #cdcdcd;
+  font-size: 10px;
+  font-weight: 200;
+  margin-top: 25px;
 }
