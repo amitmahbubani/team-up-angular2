@@ -44,13 +44,12 @@ router.all('/events', function (req, res, next) {
 
 router.all('/logout', function (req, res, next) {
     var previouslyPresent = false;
-    if (userSessions.hasOwnProperty(req.parsedParams.user_id)) {
-        delete userSessions[userSessions[req.parsedParams.user_id]];//remove access_token => id map
-        delete userSessions[req.parsedParams.user_id]; //remove id => access_token map
+    if (userSessions.getFromId(req.parsedParams.user_id)) {
+        userSessions.deleteSession(req.parsedParams.user_id);
         previouslyPresent = true;
     }
     req.apiResponse = {
-        was_user_logged_in: previouslyPresent
+        was_logged_in: previouslyPresent
     };
     req.is_authorized = false;
     next();
