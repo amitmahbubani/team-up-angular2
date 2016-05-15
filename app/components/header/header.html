@@ -66,7 +66,7 @@
 					</div>
 					<label class="text-muted">Password</label>
 					<div class="input-group">
-					  <input type="password" class="form-control" [(ngModel)]="login.password">
+					  <input type="password" class="form-control" [(ngModel)]="login.password" (keyup.enter)="emailLogin()">
 					</div>
 					<div class="signin-spacer">
 						<span class="signin-btn" (click)="emailLogin()">LOGIN</span>
@@ -88,7 +88,7 @@
 					</div>
 					<label class="text-muted">Password</label>
 					<div class="input-group">
-					  <input type="password" class="form-control" [(ngModel)]="signUp.password" >
+					  <input type="password" class="form-control" [(ngModel)]="signUp.password" (keyup.enter)="emailSignUp()">
 					</div>
 					<div class="signin-spacer">
 						<span class="signin-btn" (click)="emailSignUp()">SIGN UP</span>
