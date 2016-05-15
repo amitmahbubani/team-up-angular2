@@ -82,7 +82,7 @@ app.use(serveFavicon(__dirname + '/../app/assets/images/favicon.jpg'));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
-    res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    res.set('Access-Control-Allow-Headers', 'authorization, content-type');
     res.set('Content-Type', 'application/json');
     if (req.method === 'OPTIONS') {
         res.sendStatus(200);
