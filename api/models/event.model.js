@@ -63,7 +63,7 @@ var event = function () {
                     callback(null, event);
                 }
             });
-            for (userId in eventUserData[id]) {
+            for (var userId in eventUserData[id]) {
                 userModel.profile(userId, function (err, result) {
                     if (!err) {
                         if (blockedMembers.hasOwnProperty(result.id)) {
@@ -93,7 +93,7 @@ var event = function () {
         var eventData = model('event');
         var eventIds = Object.keys(eventData);
         var pendingEvents = eventIds.length;
-        for (index in eventIds) {
+        for (var index in eventIds) {
             this.get(eventIds[index], function (err, result) {
                 if (!err) {
                     list.push(result);
@@ -113,7 +113,7 @@ var event = function () {
             , userData = model('user');
 
         var questionParams = {};
-        for (questionId in params.questions) {
+        for (var questionId in params.questions) {
             questionParams[questionId] = {
                 ans: params.questions[questionId]
             };
@@ -251,7 +251,7 @@ var event = function () {
             , eventUserData = model('event_user');
 
         var trendingEvents = [];
-        for (eventId in eventUserData) {
+        for (var eventId in eventUserData) {
             trendingEvents.push({
                 eventId: eventId,
                 numberOfUsers: Object.keys(eventUserData[eventId]).length
@@ -263,8 +263,8 @@ var event = function () {
         trendingEvents = trendingEvents.slice(0, noOfResults);
 
         var pendingRequests = Object.keys(eventUserData).length;
-        var events =[];
-        for(index in trendingEvents) {
+        var events = [];
+        for (var index in trendingEvents) {
             var eventId = trendingEvents[index].eventId;
             this.get(eventId, function (err, result) {
                 pendingRequests--;

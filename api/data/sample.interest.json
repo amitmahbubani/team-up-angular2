@@ -1,6 +1,6 @@
 {
-  "int1": {
-    "name": "Interest 1",
+  "sports": {
+    "name": "Sports & Extra curricular",
     "image_url": "",
     "questions": [
       {
@@ -11,10 +11,43 @@
       },
       {
         "id": "ques2",
-        "title": "Near by of",
-        "type": "text",
+        "title": "Prefer playing indoor?",
+        "type": "boolean",
         "mandatory": false
       }
-    ]
+    ],
+    "keywords": [
+      "sport",
+      "sports",
+      "outdoor",
+      "play",
+      "tournament"
+    ],
+    "parent_id": ""
+  },
+  "badminton": {
+    "name": "Badminton",
+    "image_url": "",
+    "questions": [
+      {
+        "id": "ques1",
+        "title": "Are you male?",
+        "type": "boolean",
+        "mandatory": true
+      },
+      {
+        "id": "ques2",
+        "title": "Prefer playing outdoor?",
+        "type": "boolean",
+        "mandatory": false
+      }
+    ],
+    "keywords": [
+      "badminton",
+      "racket",
+      "play",
+      "tournament"
+    ],
+    "parent_id": "sports"
   }
 }
