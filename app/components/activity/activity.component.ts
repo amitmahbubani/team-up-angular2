@@ -27,10 +27,11 @@ export class ActivityComponent {
 		}
 	}
 	nextQues(){
-		this.currentCount++;
-		if(this.currentCount === this.selectedInterest['questions'].length){
+		if ((this.currentCount + 1) === this.selectedInterest['questions'].length) {
 			this.findPartner();
+			return;
 		}
+		this.currentCount++;
 	}
 	findPartner(){
 		this.eventService.findPartner(this.response).subscribe(

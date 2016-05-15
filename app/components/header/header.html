@@ -22,7 +22,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-3 signin-spacer">
-					<span class="signin-btn" (click)="showLoginModal=true;showLoginSection=true" style="cursor: pointer;">SIGN IN</span>
+					<span class="signin-btn" *ngIf="!userService.isAuthorized()" (click)="showLoginModal=true;showLoginSection=true" style="cursor: pointer;">SIGN IN</span>
 				</div>
 			</div>
 		</div>
@@ -38,8 +38,9 @@
 				</div>
 				<div class="nav-links">
 					<a [routerLink]="['CreateEvent']"><span class="nav-link">CREATE A TEAM</span></a>
-					<a (click)="showLoginModal=true;showLoginSection=true" style="cursor: pointer;"><span class="nav-link">LOGIN</span></a>
-					<a (click)="showLoginModal=true;showLoginSection=false" style="cursor: pointer;"><span class="nav-link">SIGNUP</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=true" *ngIf="!userService.isAuthorized()" style="cursor: pointer;"><span class="nav-link">LOGIN</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=false" *ngIf="!userService.isAuthorized()" style="cursor: pointer;"><span class="nav-link">SIGNUP</span></a>
+					<a (click)="userService.logout" *ngIf="userService.isAuthorized()" style="cursor: pointer;"><span class="nav-link">LOGOUT</span></a>
 				</div>
 			</div>
 		</div>
