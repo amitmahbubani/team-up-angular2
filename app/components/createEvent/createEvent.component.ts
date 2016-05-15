@@ -18,8 +18,8 @@ export class CreateEventComponent {
 		this.eventService.createEvent(this.userResponse).subscribe(
 			data => {
 				if (data.success) {
-					alert("We will get back to you soon, when we team up with a partner!");
-					this.router.navigate(['Home']);
+					alert("We will get back to you soon, when we team you up with a partner!");
+					//this.router.navigate(['Home']);
 				} else {
 					//TBD
 				}

@@ -16,4 +16,8 @@ export class EventService {
 		var serviceUrl: string = '/event/create';
 		return this.baseService.postRequest(serviceUrl, params);
 	}
+	joinEvent(params: Object = null) {
+		var serviceUrl: string = '/event/request';
+		return this.baseService.postRequest(serviceUrl, params);
+	}
 }
