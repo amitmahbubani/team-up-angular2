@@ -2,9 +2,9 @@
 
 function copyFile($src, $dest, $append = true)
 {
-    $prefix = __DIR__;
+    $prefix = __DIR__ . '/';
     if ( $append ) {
-        $prefix .= '/data/';
+        $prefix .= 'data/';
     }
     copy($prefix . $src, $prefix . $dest);
 }
