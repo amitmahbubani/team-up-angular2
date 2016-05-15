@@ -207,8 +207,8 @@ var event = function () {
                 });
             } else {
                 var obj = {
-                    "joined": false,
-                    "request_pending": true,
+                    "joined": true,
+                    "request_pending": false,
                     "rating": 1
                 };
 
