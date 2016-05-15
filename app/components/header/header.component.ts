@@ -7,7 +7,26 @@ import {UserService} from '../common/user.service'
 	directives: [ROUTER_DIRECTIVES]
 })
 export class HeaderComponent {
+	public signUp = {
+		firstName:'',
+		lastName:'',
+		email:'',
+		password:'',
+		confirmPassword:''
+	}
 	constructor(public userService: UserService){
 		
+	}
+	emailSignUp(){
+		if( this.signUp.password !== this.signUp.confirmPassword ){
+			alert("Passwords do not match.");
+			this.signUp.password = ''; this.signUp.confirmPassword = '';
+			return;
+		}
+		if(this.signUp.firstName === '' || this.signUp.lastName === '' || this.signUp.email === ''){
+			alert("invalid details in form.");
+			return;
+		}
+		this.userService.userSignup(this.signUp)
 	}
 }

@@ -27,3 +27,13 @@
 		</div>
 	</div>
 </div>
+<div>
+	<form>
+		First Name :<input type="text" [(ngModel)]="signUp.firstName" /><br>
+		Last Name :<input type="text" [(ngModel)]="signUp.lastName" /><br>
+		Email :<input type="text" [(ngModel)]="signUp.email" /><br>
+		Password :<input type="text" [(ngModel)]="signUp.password" /><br>
+		Confirm Password :<input type="text" [(ngModel)]="signUp.confirmPassword" /><br>
+		<button (click)="emailSignUp()">Sign Up</button>
+	</form>
+</div>
