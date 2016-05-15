@@ -1,12 +1,7 @@
 var interest = function () {
-
-    var dataPath = {
-        interest: __dirname + '/../data/interest.json',
-    };
-
     var obj = {
         get: function (id, callback) {
-            var interestData = require(dataPath.interest);
+            var interestData = model('interest');
 
             if (interestData.hasOwnProperty(id)) {
                 var resObj = interestData[id];
@@ -19,7 +14,7 @@ var interest = function () {
     };
 
     obj.search = function (queryString, callback) {
-        var interestData = require(dataPath.interest);
+        var interestData = model('interest');
         return this.get("int1", callback);
     };
 

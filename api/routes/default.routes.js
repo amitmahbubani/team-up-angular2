@@ -2,7 +2,8 @@ var router = require('express').Router();
 
 //Models
 var interestModel = require(__dirname + '/../models/interest.model')
-    , userModel = require(__dirname + '/../models/user.model');
+    , userModel = require(__dirname + '/../models/user.model')
+    , eventModel = require(__dirname + '/../models/event.model');
 
 router.all('/guest', function (req, res, next) {
     req.apiResponse = {
@@ -62,7 +63,7 @@ router.all('/login', function (req, res, next) {
 
     } else if (params.type === userModel.LOGIN_TYPE.normal) {
         userModel.login(params, function (err, result) {
-            if(err) {
+            if (err) {
                 req.apiResponse = {
                     error: err
                 }
@@ -76,6 +77,19 @@ router.all('/login', function (req, res, next) {
     } else {
         next();
     }
+});
+
+router.all('/home', function (req, res, next) {
+    eventModel.trendingEvents({}, function (err, result) {
+        if (err) {
+            req.apiResonse = {
+                error: err
+            };
+        } else {
+            req.apiResponse = result;
+        }
+        next();
+    })
 });
 
 module.exports = router;
