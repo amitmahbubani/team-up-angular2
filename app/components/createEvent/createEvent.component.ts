@@ -19,7 +19,7 @@ export class CreateEventComponent {
 			data => {
 				if (data.success) {
 					alert("We will get back to you soon, when we team you up with a partner!");
-					//this.router.navigate(['Home']);
+					this.router.navigate(['Home']);
 				} else {
 					//TBD
 				}

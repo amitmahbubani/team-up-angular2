@@ -8,11 +8,13 @@ declare var FB: any;
 @Injectable()
 export class UserService {
 	public selectedInterest = {};
+	public allInterests = [];
 	public userLogged = new EventEmitter();
 	public baseUrl = '/user';
 	public userDetails = null;
 	constructor(private baseService: BaseService, private _router: Router) {
 		console.log("User Service Created.")
+		this.getAllInterests();
 		if (baseService.isLoggedIn) {
 			this.getUserProfileData();
 		}
@@ -105,6 +107,21 @@ export class UserService {
 			data => {
 				if (data.success) {
 					this.userDetails = data.response.user || null;
+				}
+				else {
+					//TBD
+				}
+			},
+			err => console.log('Error: ', err)
+			);
+	}
+	getAllInterests() {
+		var serviceUrl = '/interests';
+		return this.baseService.getRequest(serviceUrl)
+			.subscribe(
+			data => {
+				if (data.success) {
+					this.allInterests = data.response || [];
 				}
 				else {
 					//TBD
