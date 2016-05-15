@@ -9,7 +9,42 @@ import {UserService} from '../common/user.service'
 export class HeaderComponent {
 	public showLoginModal = false;
 	public showLoginSection = true;
+	public signUp: any = {
+		name:'',
+		email:'',
+		password:'',
+		confirmPassword: ''
+	}
+	public login: any = {
+		password: '',
+		email: ''
+	}
 	constructor(public userService: UserService){
 		
+	}
+	emailSignUp(){
+		if(this.signUp.name === '' || this.signUp.email === ''){
+			alert("invalid details in form.");
+			return;
+		}
+		this.signUp.confirmPassword = this.signUp.password;
+		this.userService.userSignup(this.signUp);
+		this.signUp = {
+			name: '',
+			email: '',
+			password: '',
+			confirmPassword: ''
+		};
+	}
+	emailLogin() {
+		if (this.login.email === '' || this.login.password === '') {
+			alert("Email and Password cannot be left blank.");
+			return;
+		}
+		this.userService.userLogin(this.login,'email');
+		this.login = {
+			password: '',
+			email: ''
+		}
 	}
 }

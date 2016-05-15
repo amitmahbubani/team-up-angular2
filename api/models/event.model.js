@@ -144,32 +144,56 @@ var event = function () {
 
         utils.writeToFile(eventId, insertParams, 'event', function (err) {
             if (err) {
-                console.log("error", err);
+                return callback(err);
             }
-            console.log('written to event');
-        });
+            var eventUserMap = {};
+            eventUserMap[insertParams.organiser_id] = {
+                joined: true,
+                request_pending: false,
+                rating: 1
+            };
+            utils.writeToFile(eventId, eventUserMap, 'event_user', function (err) {
+                if (err) {
+                    utils.deleteFileObj('event', eventId, function (err) {
+                    });
+                    return callback({
+                        err: err,
+                        msg: 'Transaction failed'
+                    });
+                }
+                utils.updateFileObj(insertParams.organiser_id, eventId, eventUserMap[insertParams.organiser_id], 'user_event', function (err) {
+                    if (err) {
+                        utils.deleteFileObj('event', eventId, function (err) {
+                            utils.deleteFileObj('event_user', eventId, function (err) {
 
-        var eventUserMap = {};
-        eventUserMap[insertParams.organiser_id] = {
-            joined: true,
-            request_pending: false,
-            rating: 1
-        };
-        utils.writeToFile(eventId, eventUserMap, 'event_user', function (err) {
-            if (err) {
-                console.log("error", err);
-            }
-            console.log('written to event_user');
-        });
-        utils.updateFileObj(insertParams.organiser_id, eventId, eventUserMap[insertParams.organiser_id], 'user_event', function (err) {
-            if (err) {
-                console.log("error", err);
-            }
-            console.log('written to user_event');
-        });
+                            });
+                        });
 
-        callback(null, {
-            success: true
+                        return callback({
+                            err: err,
+                            msg: 'Transaction failed'
+                        });
+                    }
+                    utils.updateFileObj(insertParams.interest_id, eventId, {}, 'interest_event', function (err) {
+                        if (err) {
+                            utils.deleteFileObj('event', eventId, function (err) {
+                                utils.deleteFileObj('event_user', eventId, function (err) {
+                                    utils.deleteFileObj('user_event', insertParams.organiser_id, eventId, function (err) {
+
+                                    });
+                                });
+                            });
+                            return callback({
+                                err: err,
+                                msg: 'Transaction failed'
+                            });
+                        }
+                        callback(null, {
+                            success: true
+                        });
+                    });
+                });
+            });
         });
     };
 
