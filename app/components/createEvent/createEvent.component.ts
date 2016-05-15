@@ -11,6 +11,7 @@ import {UserService} from '../common/user.service'
 })
 export class CreateEventComponent {
 	public userResponse = {};
+	public showSuccessModal = false;
 	constructor(public userService: UserService, private eventService: EventService, private router:Router) {
 		this.userResponse = this.eventService.userResponse;
 	}
@@ -18,10 +19,9 @@ export class CreateEventComponent {
 		this.eventService.createEvent(this.userResponse).subscribe(
 			data => {
 				if (data.success) {
-					alert("We will get back to you soon, when we team you up with a partner!");
-					this.router.navigate(['Home']);
+					this.showSuccessModal = true;
 				} else {
-					//TBD
+					alert('Oops! An error ocurred. Please fill out all fields and try again.');
 				}
 			},
 			err => {
