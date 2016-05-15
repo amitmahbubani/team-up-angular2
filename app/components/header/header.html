@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" *ngIf="router.isRouteActive(router.generate(['/Home']))">
 	<div class="jumbotron">
 		<div class="top-nav container">
 			<div class="row col-xs-12">
@@ -23,6 +23,23 @@
 			<div class="row">
 				<div class="col-xs-3 signin-spacer">
 					<span class="signin-btn" (click)="showLoginModal=true;showLoginSection=true" style="cursor: pointer;">SIGN IN</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="header-small" *ngIf="!router.isRouteActive(router.generate(['/Home']))">
+	<div class="jumbotron">
+		<div class="top-nav container">
+			<div class="row col-xs-12">
+				<div class="logo" [routerLink]="['Home']">
+					<img src="/app/assets/images/logo-white.png"/>
+				</div>
+				<div class="nav-links">
+					<a [routerLink]="['CreateEvent']"><span class="nav-link">CREATE A TEAM</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=true" style="cursor: pointer;"><span class="nav-link">LOGIN</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=false" style="cursor: pointer;"><span class="nav-link">SIGNUP</span></a>
 				</div>
 			</div>
 		</div>
