@@ -37,6 +37,11 @@ export class ActivityComponent {
 		this.eventService.findPartner(this.response).subscribe(
 			data => {
 				if (data.success) {
+					if(data.response.length === 0){
+						alert('No Matches Found. Create Your Activity and we will find a match for you.');
+						this.router.navigate(['CreateEvent']);
+						return;
+					}
 					this.eventService.userResponse = this.response;
 					this.eventService.eventResultList = data.response;
 					this.router.navigate(['Result']);

@@ -1,60 +1,76 @@
 <div class="create-event-container container">
-	<div class="title text-muted text-uppercase">Create new teamup Activity</div>
-	<div class="create-form-container">
-		<div class="form-block">
-			<div class="row">
-				<div class="col-xs-12 block-title">BASIC DETAILS</div>
-			</div>
-			<div class="block-input row">
-				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase" [(ngModel)]="userResponse.title">EVENT TITLE</label>
-					<div class="input-group">
-					  <input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase" [(ngModel)]="userResponse.description">EVENT DESCRIPTION</label>
-					<div class="input-group">
-					  <input type="text" class="form-control">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="form-block">
-			<div class="row">
-				<div class="col-xs-12 block-title">OTHER DETAILS</div>
-			</div>
-			<div class="block-input row">
-				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase" [(ngModel)]="userResponse.location">LOCATION</label>
-					<div class="input-group">
-					  <input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase" [(ngModel)]="userResponse.event_start_date">START DATE</label>
-					<div class="input-group">
-					  <input type="text" class="form-control">
-					</div>
-				</div>
-			</div>
-			<div class="block-input row">
-				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase" [(ngModel)]="userResponse.city">CITY</label>
-					<div class="input-group">
-					  <input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase" [(ngModel)]="userResponse.event_end_date">END DATE</label>
-					<div class="input-group">
-					  <input type="text" class="form-control">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="signin-spacer text-center">
-			<div class="done-btn" (click)="createEvent()">Create Event</div>
-		</div>
-	</div>
+    <div class="title text-muted text-uppercase">Create new teamup Activity</div>
+    <div class="create-form-container">
+        <div class="form-block">
+            <div class="row">
+                <div class="col-xs-12 block-title">BASIC DETAILS</div>
+            </div>
+            <div class="block-input row">
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">EVENT TITLE</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="userResponse.title">
+                    </div>
+                </div>
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">EVENT DESCRIPTION</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="userResponse.description">
+                    </div>
+                </div>
+            </div>
+            <div class="block-input row">
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">INTERESTED IN</label>
+                    <div class="input-group">
+                        <select  class="form-control" placeholder="Select Interest" [(ngModel)]="userResponse.interest_id">
+							<option *ngFor="let interest of userService.allInterests" [value]="interest.id">{{interest.name}}</option>
+						</select>
+                    </div>
+                </div>
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">IMAGE URL</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="userResponse.event_pic">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-block">
+            <div class="row">
+                <div class="col-xs-12 block-title">OTHER DETAILS</div>
+            </div>
+            <div class="block-input row">
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">LOCATION</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="userResponse.location">
+                    </div>
+                </div>
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">START DATE</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="userResponse.event_start_date" placeholder="yyyy-mm-dd">
+                    </div>
+                </div>
+            </div>
+            <div class="block-input row">
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">CITY</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="userResponse.city">
+                    </div>
+                </div>
+                <div class="col-xs-6 form-column">
+                    <label class="form-label text-uppercase">END DATE</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="userResponse.event_end_date">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="signin-spacer text-center">
+            <div class="done-btn" (click)="createEvent()">Create Event</div>
+        </div>
+    </div>
 </div>
