@@ -79,10 +79,10 @@ var publicRoutes = require('./routes/default.routes')
     , eventRoutes = require('./routes/event.routes');
 
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
-    if(req.method === 'OPTIONS') {
+    if (req.method === 'OPTIONS') {
         res.sendStatus(200);
     } else {
         next();
@@ -114,7 +114,7 @@ app.use(function (req, res, next) {
     /*
      To remove
      */
-    // req.is_authorized = true
+    // req.is_authorized = true;
     // req.parsedParams.user_id = 2;
     // next();
 });
