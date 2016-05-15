@@ -12,5 +12,11 @@
   "redis": {
     "host": "127.0.0.1",
     "password": ""
+  },
+  "fb" : {
+    "appId": "1723846064530466",
+    "appSecret": "5b6f4a9b858f2c48d2804cead882d291",
+    "version": "v2.6",
+    "userAgent": "teamup_node_sdk"
   }
 }
