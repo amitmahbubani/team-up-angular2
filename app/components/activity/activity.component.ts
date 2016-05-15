@@ -14,15 +14,24 @@ export class ActivityComponent {
 		interest_id: null,
 		questions:{}
 	}
+	public currentCount = 0;
 	constructor(public userService:UserService, private eventService: EventService, private router: Router){
 		this.selectedInterest = this.userService.selectedInterest;
 		this.response.interest_id = this.selectedInterest['id'];
 		this.createPostResponseStrcuture(this.selectedInterest['questions']);
+		this.currentCount = 0;
 	}
 	createPostResponseStrcuture(ques){
 		for (var i = 0; i < ques.length; i++){
 			this.response.questions[ques[i]['id']] = null;
 		}
+	}
+	nextQues(){
+		if ((this.currentCount + 1) === this.selectedInterest['questions'].length) {
+			this.findPartner();
+			return;
+		}
+		this.currentCount++;
 	}
 	findPartner(){
 		this.eventService.findPartner(this.response).subscribe(
