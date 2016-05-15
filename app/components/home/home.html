@@ -2,20 +2,24 @@
 	<div class="interest-search-container">
 		<div class="search">
 			<div class="search-title">
-				<p>I am interested in?</p>
+				<p>What are you interested in?</p>
 			</div>
 			<div class="search-box">
 				<div class="input-group input-group-lg">
-				  <input type="text" class="form-control" placeholder="Start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()">
+				  <input type="text" class="form-control" placeholder="start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()">
 				</div>
 			</div>
 			<div (click)="getMachingInterest()" class="next-btn">NEXT</div>
 		</div>
+		<div class="sample-interest-title">Or choose from these interests:</div>
+		<div class="interest-list">
+			<div class="interest" *ngFor="let interest of interests" (click)="getMachingInterest(interest.name)">{{interest.name}}</div>
+		</div>
 	</div>
 	<div class="teamup-events">
-		<div class="title">Trending Teamups</div>
+		<div class="title" *ngIf="trendingEvents.length > 0">Trending Teamups</div>
 		<div class="row cards">
-			<div class="col-xs-4" *ngFor="let trend of trendingEvents">
+			<div class="col-xs-4" *ngFor="let trend of trendingEvents;let i=index">
 				<div class="event-card">
 					<div class="image"><img src="app/assets/images/event-image.png" /></div>
 					<div class="content">
@@ -29,7 +33,7 @@
 						</div>
 						<div class="section-header">LOCATION</div>
 						<div class="location-data">{{trend.location}}</div>
-						<div class="join-btn">JOIN NOW</div>
+						<div class="join-btn" (click)="joinEvent(trend,i)">JOIN NOW</div>
 					</div>
 				</div>
 			</div>
