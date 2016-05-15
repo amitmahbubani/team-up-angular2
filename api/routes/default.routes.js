@@ -80,13 +80,26 @@ router.all('/login', function (req, res, next) {
 });
 
 router.all('/home', function (req, res, next) {
-    var pendingRequests = 2 - (req.parsedParams.user_id ? 0 : 1);
+    var pendingRequests = 3 - (req.parsedParams.user_id ? 0 : 1);
     req.apiResponse = {};
     eventModel.trendingEvents({}, function (err, result) {
         if (err) {
             req.apiResonse.error = err;
         } else {
             req.apiResponse.trending_events = result;
+        }
+        pendingRequests--;
+        if (pendingRequests === 0) {
+            next();
+        }
+    });
+    interestModel.list(function (err, result) {
+        if (err) {
+            req.apiResponse = {
+                error: err
+            };
+        } else {
+            req.apiResponse.interests = result;
         }
         pendingRequests--;
         if (pendingRequests === 0) {
