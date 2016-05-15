@@ -13,7 +13,7 @@ router.all('/guest', function (req, res, next) {
 });
 
 router.all('/search', function (req, res, next) {
-    var searchString = req.parsedParams.q;
+    var searchString = decodeURI(req.parsedParams.q);
 
     interestModel.search(searchString, function (err, result) {
         if (err) {

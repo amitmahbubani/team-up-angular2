@@ -9,7 +9,7 @@ var user = function () {
         },
         getUserIdByEmail: function (email) {
             var userData = model('user');
-            for (id in userData) {
+            for (var id in userData) {
                 if (userData[id].email === email) {
                     return id;
                 }
