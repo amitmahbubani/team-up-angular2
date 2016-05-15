@@ -15,10 +15,10 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<span class="main-title col-xs-12">We help you team better.</span>
+				<span class="main-title col-xs-12">Create your own Teamup.</span>
 			</div>
 			<div class="row">
-				<span class="sub-title col-xs-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Done cac ex maximus,dui non, lacinia diam.</span>
+				<span class="sub-title col-xs-6">Teamup helps you find like-minded people you share interests with, make plans and have fun in a team!</span>
 			</div>
 			<div class="row">
 				<div class="col-xs-3 signin-spacer">
@@ -57,7 +57,10 @@
 			</div>
 			<div class="login-section" *ngIf="showLoginSection">
 				<div class="social-buttons">
-					<span class="facebook" (click)="userService.facebookLogin()">Facebook</span><span class="google">Google</span>
+					<span class="facebook" (click)="userService.facebookLogin()"><img src="app/assets/images/fb-icon.png" /> Facebook</span>
+				</div>
+				<div class="seperator">
+					<span class="or-text">Or</span>
 				</div>
 				<div class="modal-form"> 
 					<label class="text-muted">Email</label>
@@ -75,7 +78,10 @@
 			</div>
 			<div class="signup-section" *ngIf="!showLoginSection">
 				<div class="social-buttons">
-					<span class="facebook" (click)="userService.facebookLogin()">Facebook</span><span class="google">Google</span>
+					<span class="facebook" (click)="userService.facebookLogin()"><img src="app/assets/images/fb-icon.png" /> Facebook</span>
+				</div>
+				<div class="seperator">
+					<span class="or-text">Or</span>
 				</div>
 				<div class="modal-form"> 
 					<label class="text-muted">Name</label>
