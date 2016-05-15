@@ -1,19 +1,18 @@
 <div class="home-container container">
-	<div class="search">
-		<div class="search-title">
-			<p>I want to ... ?</p>
-		</div>
-		<div class="search-box">
-			<div class="input-group input-group-lg">
-			  <input type="text" class="form-control" placeholder="start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()" (focus)="showSuggestions=true" (blur)="showSuggestions=false">
+	<div class="step-count">
+		<p>STEP 1 OF 4</p>
+	</div>
+	<div class="interest-search-container">
+		<div class="search">
+			<div class="search-title">
+				<p>I am interested in?</p>
 			</div>
-			<div class="search-suggestions" *ngIf="showSuggestions">
-				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 1</div>
-				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 2</div>
-				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 3</div>
-				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 4</div>
-				<div class="suggestion" [routerLink]="['Activity',{id:'activityid'}]">Suggestion 5</div>
+			<div class="search-box">
+				<div class="input-group input-group-lg">
+				  <input type="text" class="form-control" placeholder="Start typing..." [(ngModel)]="searchQuery" (keyup.enter)="getMachingInterest()">
+				</div>
 			</div>
+			<div class="next-btn">NEXT</div>
 		</div>
 	</div>
 </div>
