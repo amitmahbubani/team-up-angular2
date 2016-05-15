@@ -4,11 +4,11 @@ var express = require('express')
     , serveFavicon = require('serve-favicon');
 
 app = express();
-userSessions = {};
 //Utility objects
 config = require('./config.json')
 model = require('./models/model');
 utils = require('./utils');
+userSessions = new utils.userSessions();
 
 app.set('mysqlConn', {});
 app.set('mysqlConnectionStatus', false);
@@ -105,19 +105,16 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(/^\/((?!(guest|error)).)*$/, function (req, res, next) {
-    console.log("In checking");
     if (!req.parsedParams.access_token) {
-        console.log('redirect');
         res.redirect('/error');
     } else {
-        console.log("no");
         next();
     }
 });
 app.use(function (req, res, next) {
-    if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
+    if (userSessions.getFromToken(req.parsedParams.access_token)) {
         req.is_authorized = true
-        req.parsedParams.user_id = userSessions[req.parsedParams.access_token];
+        req.parsedParams.user_id = userSessions.getFromToken(req.parsedParams.access_token);
     } else {
         req.is_authorized = false;
     }
@@ -132,7 +129,7 @@ app.use('/', publicRoutes);
 app.use('/user', userRoutes);
 app.use('/event', eventRoutes);
 app.use(function (req, res, next) {
-    if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
+    if (userSessions.getFromToken(req.parsedParams.access_token)) {
         req.is_authorized = true
     } else {
         req.is_authorized = false;

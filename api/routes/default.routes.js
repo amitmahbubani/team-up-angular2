@@ -1,6 +1,4 @@
-var router = require('express').Router()
-    , fb = require('fb');
-
+var router = require('express').Router();
 
 //Models
 var interestModel = require(__dirname + '/../models/interest.model')
@@ -30,42 +28,31 @@ router.all('/search', function (req, res, next) {
 
 router.all('/register', function (req, res, next) {
     var params = req.parsedParams;
-    fb.options(config.fb);
-
-    fb.setAccessToken(params.fb_access_token);
-    fb.api('/me', {
-        fields: [
-            'id',
-            'first_name',
-            'last_name',
-            'gender',
-            'email',
-            'birthday'
-        ]
-    }, function (result) {
-        if (result.error) {
-            req.apiResponse = {
-                error: {
-                    err: result.error.message,
-                    msg: "Facebook data fetching failed"
-                }
-            };
+    console.log(params);
+    if (params.type == userModel.LOGIN_TYPE.fb) {
+        userModel.facebookLogin(params, function (err, result) {
+            if (err) {
+                req.apiResponse = {
+                    error: err
+                };
+            } else {
+                userModel.setSession(result.user_id, params.access_token);
+                delete result.user_id;
+                req.apiResponse = result;
+            }
             next();
-        } else {
-            userModel.register(result, function (err, response) {
-                if (err) {
-                    req.apiResponse = {
-                        error: err
-                    };
-                } else {
-                    userModel.setSession(response.user_id, params.access_token);
-                    delete response.user_id;
-                    req.apiResponse = response;
-                }
-                next();
-            });
-        }
-    });
+        });
+    } else if (params.type === userModel.LOGIN_TYPE.google) {
+
+    } else if (params.type === userModel.LOGIN_TYPE.normal) {
+
+    } else {
+        next();
+    }
+});
+
+router.all('/login', function (req, res, next) {
+
 });
 
 module.exports = router;

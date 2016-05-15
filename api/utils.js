@@ -90,5 +90,26 @@ module.exports = {
         } else {
             fs.writeFile(filename, JSON.stringify(deletedObj, null, '  '), arguments[arguments.length - 1]);
         }
+    },
+    userSessions: function () {
+        var session = model('session');
+        var sessionObj = {
+            getFromId: function (userId) {
+                return session[userId];
+            },
+            getFromToken: function (token) {
+                return session[token];
+            },
+            reload: function () {
+                var res = fs.writeFileSync(__dirname + '/data/session.json', JSON.stringify(session, null, '  '));
+                console.log(res);
+            }
+        };
+        sessionObj.setSession = function (token, userId) {
+            session[token] = userId;
+            session[userId] = token;
+            this.reload();
+        };
+        return sessionObj;
     }
 };

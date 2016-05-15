@@ -1,5 +1,12 @@
+var fb = require('fb');
+
 var user = function () {
     var obj = {
+        LOGIN_TYPE: {
+            normal: 1,
+            fb: 2,
+            google: 3
+        },
         getUserIdByEmail: function (email) {
             var userData = model('user');
             for (id in userData) {
@@ -47,18 +54,24 @@ var user = function () {
             }
         },
         setSession: function (userId, token) {
-            userSessions[userId] = token;
-            userSessions[token] = userId;
+            userSessions.setSession(token, userId);
         }
     };
 
     obj.register = function (params, callback) {
         var userId = this.getUserIdByEmail(params.email);
         if (userId !== false) {
-            return callback(null, {
-                is_new_user: false,
-                user_id: userId
-            });
+            if(params.type === this.LOGIN_TYPE.normal) {
+                return callback({
+                    err: "User already registered",
+                    msg: "User already exists"
+                });
+            } else {
+                return callback(null, {
+                    is_new_user: false,
+                    user_id: userId
+                });
+            }
         } else {
             userId = Math.random().toString(36).substr(2, 10);
             var userObj = {
@@ -92,6 +105,50 @@ var user = function () {
                 });
             })
         }
+    };
+
+    obj.login = function (params, callback) {
+        var userId = this.getUserIdByEmail(params.email);
+        if (userId !== false) {
+
+            return callback(null, {
+                is_new_user: false,
+                user_id: userId
+            });
+        } else {
+
+        }
+    };
+
+    obj.facebookLogin = function (params, callback) {
+        var thisObj = this;
+        fb.options(config.fb);
+        fb.setAccessToken(params.fb_access_token);
+        fb.api('/me', {
+            fields: [
+                'id',
+                'first_name',
+                'last_name',
+                'gender',
+                'email',
+                'birthday'
+            ]
+        }, function (result) {
+            if (result.error) {
+                callback({
+                    err: result.error.message,
+                    msg: "Facebook data fetching failed"
+                })
+            } else {
+                thisObj.register(result, function (err, response) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        callback(null, response);
+                    }
+                });
+            }
+        });
     };
 
 
