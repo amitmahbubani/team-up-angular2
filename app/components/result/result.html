@@ -30,12 +30,21 @@
 		<div class="next-event">
 		</div>
 	</div>
+	<div class="event-data">
+		<div class="title">Some Data here for evenr</div>
+		<div class="data">
+			Happening on: <span class="value">14/06/16</span>
+			People Interested: <span class="value">100</span>
+		</div>
+		<div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam commodo imperdiet  dolor viverra condimentum. Sed ut nibh eu nunc laoreet consequat, Ut facilisis, est  vitae consectetur iaculis, est tortor egestas diam, quis placerat enim ipsum eget neque. Posuere nunc nec conse</div>
+		<div class="join-btn">JOIN NOW</div>
+	</div>
 </div>
 
-<div>
+<div *ngIf="false">
 {{eventResultSet[currentCount] | json}}
 </div>
-<div>
+<div *ngIf="false">
 	<button (click)="joinEvent(eventResultSet[currentCount].id)">JOIN</button><button (click)="getNextResult()" *ngIf="currentCount < (eventResultSet.length-1)">NEXT</button>
 	<button (click)="getNextResult()" *ngIf="currentCount === (eventResultSet.length-1)" [routerLink]="['CreateEvent']">CREATE EVENT</button>
 </div>
