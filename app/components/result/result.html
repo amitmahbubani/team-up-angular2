@@ -30,4 +30,13 @@
 		<div class="next-event">
 		</div>
 	</div>
+	<div class="event-data">
+		<div class="title">{{eventResultSet[currentCount].name}}</div>
+		<div class="data">
+			Happening on: <span class="value">{{eventResultSet[currentCount].event_start_date}}</span>
+			People Interested: <span class="value">100</span>
+		</div>
+		<div class="description">{{eventResultSet[currentCount].description}}</div>
+		<div class="join-btn" (click)="joinEvent(eventResultSet[currentCount].id)">JOIN NOW</div>
+	</div>
 </div>

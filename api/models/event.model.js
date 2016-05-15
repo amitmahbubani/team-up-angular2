@@ -91,8 +91,9 @@ var event = function () {
     obj.getList = function (params, callback) {
         var list = [];
         var eventData = model('event')
-            , userEventData = model('user_event');
-        var eventIds = Object.keys(eventData);
+            , userEventData = model('user_event')
+            , interestEventData = model('interest_event');
+        var eventIds = (params.interest_id && interestEventData.hasOwnProperty(params.interest_id)) ? Object.keys(interestEventData[params.interest_id]) : Object.keys(eventData);
         var pendingEvents = eventIds.length;
         var userEvents = params.user_id ? userEventData[params.user_id] : {};
         for (var index in eventIds) {
