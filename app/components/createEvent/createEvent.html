@@ -75,12 +75,12 @@
     </div>
 </div>
 
-<div id="createSuccessModal" class="popupModal" *ngIf="createEvent()">
+<div id="createSuccessModal" class="popupModal" *ngIf="showSuccessModal">
     <div class="modal-success-container">
         <div class="image">
             <img src="app/assets/images/success-icon.png">
         </div>
-        <div class="text"><strong>Your Teamup has been created!</strong><br>Sit back and wait while people join you Teamup. You'll receive an e-mail with updates about this Teamup. Have fun!</div>
+        <div class="text"><strong>Your Teamup has been created!</strong><br>Sit back and wait while people join your Teamup. You'll receive an e-mail with updates about this Teamup. Have fun!</div>
         <div class="done-btn" [routerLink]="['Home']">Take Me Home</div>
     </div>
 </div>
