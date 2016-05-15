@@ -272,7 +272,7 @@ var event = function () {
         });
         trendingEvents = trendingEvents.slice(0, noOfResults);
 
-        var pendingRequests = Object.keys(eventUserData).length;
+        var pendingRequests = trendingEvents.length;
         var events = [];
         for (var index in trendingEvents) {
             var eventId = trendingEvents[index].eventId;
