@@ -5,10 +5,10 @@ var express = require('express')
 
 app = express();
 userSessions = {};
-model = require('./models/model');
 //Utility objects
-var config = require('./config.json')
-    , utils = require('./utils');
+config = require('./config.json')
+model = require('./models/model');
+utils = require('./utils');
 
 app.set('mysqlConn', {});
 app.set('mysqlConnectionStatus', false);
@@ -78,6 +78,7 @@ var publicRoutes = require('./routes/default.routes')
     , userRoutes = require('./routes/user.routes')
     , eventRoutes = require('./routes/event.routes');
 
+app.use(serveFavicon(__dirname + '/../app/assets/images/logo.png'));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
@@ -88,7 +89,6 @@ app.use(function (req, res, next) {
         next();
     }
 });
-app.use(serveFavicon(__dirname + '/../app/assets/images/logo.png'));
 app.use(function (req, res, next) {
     var params = req.params;
     var queryString = req.query;
@@ -101,8 +101,18 @@ app.use(function (req, res, next) {
     params.access_token = req.header('Authorization') || params['Authorization'] || null;
     delete params['Authorization'];
     req.parsedParams = params;
-    console.log(req.url);
+    console.log(req.url, req.parsedParams.access_token);
     next();
+});
+app.use(/^\/((?!(guest|error)).)*$/, function (req, res, next) {
+    console.log("In checking");
+    if (!req.parsedParams.access_token) {
+        console.log('redirect');
+        res.redirect('/error');
+    } else {
+        console.log("no");
+        next();
+    }
 });
 app.use(function (req, res, next) {
     if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
@@ -116,12 +126,17 @@ app.use(function (req, res, next) {
      */
     // req.is_authorized = true;
     // req.parsedParams.user_id = 2;
-    // next();
+    next();
 });
 app.use('/', publicRoutes);
 app.use('/user', userRoutes);
 app.use('/event', eventRoutes);
 app.use(function (req, res, next) {
+    if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
+        req.is_authorized = true
+    } else {
+        req.is_authorized = false;
+    }
     if (!req.is_authorized && req.is_authorized_page) {
         req.apiResponse = {
             error: {

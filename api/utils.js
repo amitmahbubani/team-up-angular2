@@ -51,7 +51,9 @@ module.exports = {
             modelData[id] = object;
             fs.writeFile(fileName, JSON.stringify(modelData, null, '  '), function (err) {
                 if (err) {
-                    return callback(err);
+                    return callback({
+                        err: err
+                    });
                 }
                 callback();
             });
