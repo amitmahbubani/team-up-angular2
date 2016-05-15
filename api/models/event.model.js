@@ -202,8 +202,24 @@ var event = function () {
                                 msg: 'Transaction failed'
                             });
                         }
-                        callback(null, {
-                            success: true
+                        utils.updateFileObj(params.city_id, eventId, {}, 'city_event', function (err) {
+                            if (err) {
+                                utils.deleteFileObj('event', eventId, function (err) {
+                                    utils.deleteFileObj('event_user', eventId, function (err) {
+                                        utils.deleteFileObj('user_event', insertParams.organiser_id, eventId, function (err) {
+                                            utils.deleteFileObj('interest_event', insertParams.interest_id, eventId, function (err) {
+                                            });
+                                        });
+                                    });
+                                });
+                                return callback({
+                                    err: err,
+                                    msg: 'Transaction failed'
+                                });
+                            }
+                            callback(null, {
+                                success: true
+                            });
                         });
                     });
                 });
