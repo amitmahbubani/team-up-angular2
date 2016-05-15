@@ -286,7 +286,6 @@ var event = function () {
         trendingEvents = sortEvents(trendingEvents, function (a, b) {
             return a.numberOfUsers - b.numberOfUsers;
         });
-        trendingEvents = trendingEvents.slice(0, noOfResults);
 
         var pendingRequests = trendingEvents.length;
         var events = [];

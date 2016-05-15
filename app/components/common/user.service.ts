@@ -12,6 +12,7 @@ export class UserService {
 	public userLogged = new EventEmitter();
 	public baseUrl = '/user';
 	public userDetails = null;
+	public showLoginModal = false;
 	constructor(private baseService: BaseService, private _router: Router) {
 		console.log("User Service Created.")
 		this.getAllInterests();

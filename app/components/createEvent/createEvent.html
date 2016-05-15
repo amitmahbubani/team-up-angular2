@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="signin-spacer text-center">
-            <div class="done-btn" (click)="showSuccessModal=true">Create Event</div>
+            <div class="done-btn" (click)="userService.isAuthorized()?createEvent():(userService.showLoginModal = true)">Create Event</div>
         </div>
     </div>
 </div>

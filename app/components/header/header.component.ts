@@ -24,7 +24,7 @@ export class HeaderComponent {
 		this.subscription = this.userService.getUserLoggedInStatus()
 			.subscribe(item => {
 				console.log("Came Here");
-				this.showLoginModal = false;
+				this.userService.showLoginModal = false;
 			});
 	}
 	emailSignUp(){

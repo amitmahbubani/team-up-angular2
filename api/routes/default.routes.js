@@ -82,17 +82,57 @@ router.all('/login', function (req, res, next) {
 router.all('/home', function (req, res, next) {
     var pendingRequests = 3 - (req.parsedParams.user_id ? 0 : 1);
     req.apiResponse = {};
-    eventModel.trendingEvents({}, function (err, result) {
-        if (err) {
-            req.apiResonse.error = err;
-        } else {
-            req.apiResponse.trending_events = result;
-        }
-        pendingRequests--;
-        if (pendingRequests === 0) {
-            next();
-        }
-    });
+    if (req.parsedParams.user_id) {
+        userModel.userEvents(req.parsedParams.user_id, function (err, result) {
+            if (err) {
+                req.apiResonse.error = err;
+            } else {
+                req.apiResponse.user_events = result;
+            }
+            pendingRequests--;
+            if (pendingRequests === 0) {
+                next();
+            }
+            eventModel.trendingEvents({}, function (err, result) {
+                if (err) {
+                    req.apiResonse.error = err;
+                } else {
+                    req.apiResponse.trending_events = result;
+                    var userEventsLookup = {};
+                    if (req.apiResponse.user_events.length > 0) {
+                        for (var index in req.apiResponse.user_events) {
+                            userEventsLookup[req.apiResponse.user_events[index].id] = true;
+                        }
+                        for (var index = 0; index < req.apiResponse.trending_events.length; index++) {
+                            console.log(index, req.apiResponse.trending_events[index].id, userEventsLookup[req.apiResponse.trending_events[index].id]);
+                            if (userEventsLookup.hasOwnProperty(req.apiResponse.trending_events[index].id)) {
+                                req.apiResponse.trending_events.splice(index, 1);
+                                index--;
+                            }
+                        }
+                    }
+                    req.apiResponse.trending_events.splice(req.parsedParams.rows || 6);
+                }
+                pendingRequests--;
+                if (pendingRequests === 0) {
+                    next();
+                }
+            });
+        });
+    } else {
+        eventModel.trendingEvents({}, function (err, result) {
+            if (err) {
+                req.apiResonse.error = err;
+            } else {
+                req.apiResponse.trending_events = result.slice(0, req.parsedParams.rows || 6);
+            }
+            pendingRequests--;
+            if (pendingRequests === 0) {
+                next();
+            }
+        });
+    }
+
     interestModel.list(function (err, result) {
         if (err) {
             req.apiResponse = {
@@ -106,19 +146,6 @@ router.all('/home', function (req, res, next) {
             next();
         }
     });
-    if (req.parsedParams.user_id) {
-        userModel.userEvents(req.parsedParams.user_id, function (err, result) {
-            if (err) {
-                req.apiResonse.error = err;
-            } else {
-                req.apiResponse.user_events = result;
-            }
-            pendingRequests--;
-            if (pendingRequests === 0) {
-                next();
-            }
-        });
-    }
 });
 
 router.all('/logout', function (req, res, next) {
