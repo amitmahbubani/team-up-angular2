@@ -27,7 +27,8 @@
 		</div>
 	</div>
 </div>
-<div>
+<div *ngIf="!userService.isAuthorized()">
+<button (click)="userService.facebookLogin()">Fb Login</button>
 	<form>
 		First Name :<input type="text" [(ngModel)]="signUp.firstName" /><br>
 		Last Name :<input type="text" [(ngModel)]="signUp.lastName" /><br>
@@ -37,3 +38,4 @@
 		<button (click)="emailSignUp()">Sign Up</button>
 	</form>
 </div>
+<div *ngIf="userService.isAuthorized()">You are Logged In.</div>

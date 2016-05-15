@@ -27,6 +27,13 @@ export class HeaderComponent {
 			alert("invalid details in form.");
 			return;
 		}
-		this.userService.userSignup(this.signUp)
+		this.userService.userSignup(this.signUp);
+		this.signUp = {
+			firstName: '',
+			lastName: '',
+			email: '',
+			password: '',
+			confirmPassword: ''
+		};
 	}
 }
