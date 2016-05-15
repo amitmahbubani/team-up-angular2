@@ -39,7 +39,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="teamup-events" *ngIf="userJoinedEvents.length > 0">
+	<div class="teamup-events" *ngIf="userService.isAuthorized() && userJoinedEvents.length > 0">
 		<div class="title">Activities You Have Joined</div>
 		<div class="row cards">
 			<div class="col-xs-4" *ngFor="let trend of userJoinedEvents">
