@@ -612,6 +612,9 @@ body {
         }
         .value {
           font-weight: 400;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }
@@ -662,6 +665,22 @@ body {
         transition-duration: .4s;
         transition-timing-function: ease;
       }
+      .create-btn {
+        color: #FFFFFF;
+        background-color: #7FFF00;
+        width: 50%;
+        height: 100%;
+        display: inline-block;
+        border: 1px solid #FFFFFF;
+      }
+
+      .create-btn:hover {
+        color: #FFFFFF;
+        background-color: #E65050;
+        transition-property: all;
+        transition-duration: .4s;
+        transition-timing-function: ease;
+      }
     }
   }
 
@@ -680,4 +699,115 @@ body {
     box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
   }
 
+}
+
+
+.teamup-events {
+  margin-top: 70px;
+  .title {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+    color: #939393;
+  }
+
+  .cards {
+    margin-top: 20px;
+
+    .event-card {
+      height: 500px;
+      border: 1px solid #F2F2F2;
+
+      .image {
+        height: 220px;
+        width: 100%;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+
+      }
+
+      .content {
+        padding: 15px 10px;
+
+        .event-title {
+          font-weight: 400;
+          font-size: 14px;
+          color: #868686;
+        }
+
+        .date {
+          color: #0CAFEF;
+          font-size: 12px;
+          font-weight: 500;
+        }
+
+        .section-header {
+          margin-top: 20px;
+          font-size: 10px;
+          font-weight: 400;
+          color: #ADADAD;
+        }
+
+        .attendees-data {
+          margin-top: 15px;
+
+          .attendee-icon {
+            height: 30px;
+            width: 30px;
+            display: inline-block;
+            margin-right: 5px;
+            border-radius: 50%;
+            color: #cdcdcd;
+            background-color: #ddd;
+
+            img {
+              height: 100%;
+              border-radius: 50%;
+              border: 1px solid #cdcdcd;
+              width: 100%;
+            }
+
+          }
+        }
+
+        .location-data{ 
+          margin-top: 15px;
+          font-size: 12px;
+          font-weight: 400;
+          color: #ADADAD;
+        }
+
+        .join-btn {
+          width: 200px;
+          text-align: center;
+          display: inline-block;
+          margin-right: 20px;
+          margin-top: 30px;
+          padding: 10px 20px;
+          color: #0CAFEF;
+          border: 1px solid #0CAFEF;
+          font-size: 12px;
+          cursor: pointer;
+          transition-property: all;
+          transition-duration: .4s;
+          transition-timing-function: ease;
+        }
+        .join-btn:hover {
+          color: #FFFFFF;
+          background-color: #0CAFEF;
+          border: 1px solid #0CAFEF;
+          cursor: pointer;
+          -webkit-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+          -moz-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+          box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+          transition-property: all;
+          transition-duration: .4s;
+          transition-timing-function: ease;
+        }
+      }
+    }
+  }
 }
