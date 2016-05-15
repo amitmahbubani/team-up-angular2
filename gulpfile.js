@@ -34,9 +34,8 @@ gulp.task('scripts', function() {
 gulp.task('runserver', function() {
   gulp.src('./')
     .pipe(webserver({
-      livereload: false,
-      directoryListing: false,
-      open: true
+      open: true,
+      fallback: 'index.html'
     }));
 });
 
