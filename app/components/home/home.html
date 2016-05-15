@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="teamup-events">
-		<div class="title">Trending Teamups</div>
+		<div class="title" *ngIf="trendingEvents.length > 0">Trending Teamups</div>
 		<div class="row cards">
 			<div class="col-xs-4" *ngFor="let trend of trendingEvents;let i=index">
 				<div class="event-card">
