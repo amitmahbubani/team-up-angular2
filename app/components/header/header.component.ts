@@ -7,34 +7,34 @@ import {UserService} from '../common/user.service'
 	directives: [ROUTER_DIRECTIVES]
 })
 export class HeaderComponent {
-	public signUp = {
-		firstName:'',
-		lastName:'',
+	public showLoginModal = false;
+	public showLoginSection = true;
+	public signUp: any = {
+		name:'',
 		email:'',
 		password:'',
-		confirmPassword:''
+		confirmPassword: ''
 	}
-	public login = {
+	public login: any = {
 		password: '',
 		email: ''
 	}
+	public subscription: any;
 	constructor(public userService: UserService){
-		
+		this.subscription = this.userService.getUserLoggedInStatus()
+			.subscribe(item => {
+				this.showLoginModal = false;
+			});
 	}
 	emailSignUp(){
-		if( this.signUp.password !== this.signUp.confirmPassword ){
-			alert("Passwords do not match.");
-			this.signUp.password = ''; this.signUp.confirmPassword = '';
-			return;
-		}
-		if(this.signUp.firstName === '' || this.signUp.lastName === '' || this.signUp.email === ''){
+		if(this.signUp.name === '' || this.signUp.email === ''){
 			alert("invalid details in form.");
 			return;
 		}
+		this.signUp.confirmPassword = this.signUp.password;
 		this.userService.userSignup(this.signUp);
 		this.signUp = {
-			firstName: '',
-			lastName: '',
+			name: '',
 			email: '',
 			password: '',
 			confirmPassword: ''
@@ -45,7 +45,7 @@ export class HeaderComponent {
 			alert("Email and Password cannot be left blank.");
 			return;
 		}
-		this.userService.userLogin(this.signUp,'email');
+		this.userService.userLogin(this.login,'email');
 		this.login = {
 			password: '',
 			email: ''

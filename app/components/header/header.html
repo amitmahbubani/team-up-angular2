@@ -7,8 +7,8 @@
 				</div>
 				<div class="nav-links">
 					<a [routerLink]="['CreateEvent']"><span class="nav-link">CREATE A TEAM</span></a>
-					<a href=""><span class="nav-link">LOGIN</span></a>
-					<a href=""><span class="nav-link">SIGNUP</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=true" style="cursor: pointer;"><span class="nav-link">LOGIN</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=false" style="cursor: pointer;"><span class="nav-link">SIGNUP</span></a>
 				</div>
 			</div>
 		</div>
@@ -27,20 +27,55 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="!userService.isAuthorized()">
-<button (click)="userService.facebookLogin()">Fb Login</button>
-	<form>
-		First Name :<input type="text" [(ngModel)]="signUp.firstName" /><br>
-		Last Name :<input type="text" [(ngModel)]="signUp.lastName" /><br>
-		Email :<input type="text" [(ngModel)]="signUp.email" /><br>
-		Password :<input type="text" [(ngModel)]="signUp.password" /><br>
-		Confirm Password :<input type="text" [(ngModel)]="signUp.confirmPassword" /><br>
-		<button (click)="emailSignUp()">Sign Up</button>
-	</form>
-	<form>
-		Email :<input type="text" [(ngModel)]="login.email" /><br>
-		Password :<input type="text" [(ngModel)]="login.password" /><br>
-		<button (click)="emailLogin()">Login</button>
-	</form>
+
+<div id="loginModal" class="popupModal" *ngIf="showLoginModal">
+	<div class="modal-container">
+		<a (click)="showLoginModal=false" title="Close" class="close">X</a>
+		<div class="modal-cover">
+		</div><div class="modal-data">
+			<div class="login-options">
+				<span [ngClass]="{'active': showLoginSection}" (click)="showLoginSection=true">LOGIN</span><span [ngClass]="{'active': !showLoginSection}"(click)="showLoginSection=false">SIGN UP</span>
+			</div>
+			<div class="login-section" *ngIf="showLoginSection">
+				<div class="social-buttons">
+					<span class="facebook" (click)="userService.facebookLogin()">Facebook</span><span class="google">Google</span>
+				</div>
+				<div class="modal-form"> 
+					<label class="text-muted">Email</label>
+					<div class="input-group">
+					  <input type="text" class="form-control" [(ngModel)]="login.email" >
+					</div>
+					<label class="text-muted">Password</label>
+					<div class="input-group">
+					  <input type="password" class="form-control" [(ngModel)]="login.password">
+					</div>
+					<div class="signin-spacer">
+						<span class="signin-btn" (click)="emailLogin()">LOGIN</span>
+					</div>
+				</div>
+			</div>
+			<div class="signup-section" *ngIf="!showLoginSection">
+				<div class="social-buttons">
+					<span class="facebook" (click)="userService.facebookLogin()">Facebook</span><span class="google">Google</span>
+				</div>
+				<div class="modal-form"> 
+					<label class="text-muted">Name</label>
+					<div class="input-group">
+					  <input type="text" class="form-control" [(ngModel)]="signUp.name" >
+					</div>
+					<label class="text-muted">Email</label>
+					<div class="input-group">
+					  <input type="text" class="form-control" [(ngModel)]="signUp.email" >
+					</div>
+					<label class="text-muted">Password</label>
+					<div class="input-group">
+					  <input type="password" class="form-control" [(ngModel)]="signUp.password" >
+					</div>
+					<div class="signin-spacer">
+						<span class="signin-btn" (click)="emailSignUp()">SIGN UP</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div *ngIf="userService.isAuthorized()">You are Logged In.</div>

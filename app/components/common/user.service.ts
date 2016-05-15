@@ -1,10 +1,13 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {BaseService} from './base.service';
 import {Cookie} from './cookie';
+
+declare var FB: any;
 
 @Injectable()
 export class UserService {
 	public selectedInterest = {};
+	public userLogged = new EventEmitter();
 	constructor(private baseService: BaseService){
 		console.log("User Service Created.")
 	}
@@ -21,6 +24,7 @@ export class UserService {
 				if (data.success) {
 					Cookie.setCookie('isAuthorized', 'true', 14);
 					this.baseService.isLoggedIn = true;
+					this.emitUserLoggedInEvent();
 				}
 				else {
 					alert("Something went wrong. Try again.")
@@ -70,5 +74,12 @@ export class UserService {
 		}, {
 				scope: 'public_profile, email'
 			});
+	}
+	emitUserLoggedInEvent() {
+		this.userLogged.emit('logged');
+	}
+
+	getUserLoggedInStatus() {
+		return this.userLogged;
 	}
 }
