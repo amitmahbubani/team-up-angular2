@@ -4,11 +4,11 @@ var express = require('express')
     , serveFavicon = require('serve-favicon');
 
 app = express();
-userSessions = {};
 //Utility objects
 config = require('./config.json')
 model = require('./models/model');
 utils = require('./utils');
+userSessions = new utils.userSessions();
 
 app.set('mysqlConn', {});
 app.set('mysqlConnectionStatus', false);
@@ -17,15 +17,15 @@ app.listen(config.port, function (err) {
     if (err) {
         return console.log("Server init error ", err);
     }
-    createMysqlConnection(function (err) {
-        "use strict";
-        if (err) {
-            utils.logMessage('Mysql Connection failed');
-            process.exit();
-        } else {
-            utils.logMessage('Mysql connected');
-        }
-    });
+    // createMysqlConnection(function (err) {
+    //     "use strict";
+    //     if (err) {
+    //         utils.logMessage('Mysql Connection failed');
+    //         process.exit();
+    //     } else {
+    //         utils.logMessage('Mysql connected');
+    //     }
+    // });
 
     console.log("Server initiated at: " + config.port);
 });
@@ -83,6 +83,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    res.set('Content-Type', 'application/json');
     if (req.method === 'OPTIONS') {
         res.sendStatus(200);
     } else {
@@ -105,34 +106,26 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(/^\/((?!(guest|error)).)*$/, function (req, res, next) {
-    console.log("In checking");
     if (!req.parsedParams.access_token) {
-        console.log('redirect');
         res.redirect('/error');
     } else {
-        console.log("no");
         next();
     }
 });
 app.use(function (req, res, next) {
-    if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
+    if (userSessions.getFromToken(req.parsedParams.access_token)) {
         req.is_authorized = true
-        req.parsedParams.user_id = userSessions[req.parsedParams.access_token];
+        req.parsedParams.user_id = userSessions.getFromToken(req.parsedParams.access_token);
     } else {
         req.is_authorized = false;
     }
-    /*
-     To remove
-     */
-    // req.is_authorized = true;
-    // req.parsedParams.user_id = 2;
     next();
 });
 app.use('/', publicRoutes);
 app.use('/user', userRoutes);
 app.use('/event', eventRoutes);
 app.use(function (req, res, next) {
-    if (userSessions.hasOwnProperty(req.parsedParams.access_token)) {
+    if (userSessions.getFromToken(req.parsedParams.access_token)) {
         req.is_authorized = true
     } else {
         req.is_authorized = false;
