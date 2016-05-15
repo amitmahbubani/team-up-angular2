@@ -80,7 +80,7 @@ var user = function () {
                 password: params.password || '',
                 events: [],
                 default_location: '',
-                profile_pic: ''
+                profile_pic: params.picture || ''
             };
             utils.writeToFile(userId, userObj, 'user', function (err) {
                 if (err) {
@@ -141,7 +141,8 @@ var user = function () {
                 'last_name',
                 'gender',
                 'email',
-                'birthday'
+                'birthday',
+                'picture'
             ]
         }, function (result) {
             if (result.error) {

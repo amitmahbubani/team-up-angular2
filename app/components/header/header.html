@@ -40,7 +40,7 @@
 					<a [routerLink]="['CreateEvent']"><span class="nav-link">CREATE A TEAM</span></a>
 					<a (click)="userService.showLoginModal=true;showLoginSection=true" *ngIf="!userService.isAuthorized()" style="cursor: pointer;"><span class="nav-link">LOGIN</span></a>
 					<a (click)="userService.showLoginModal=true;showLoginSection=false" *ngIf="!userService.isAuthorized()" style="cursor: pointer;"><span class="nav-link">SIGNUP</span></a>
-					<a (click)="userService.logout" *ngIf="userService.isAuthorized()" style="cursor: pointer;"><span class="nav-link">LOGOUT</span></a>
+					<a (click)="userService.logout()" *ngIf="userService.isAuthorized()" style="cursor: pointer;"><span class="nav-link">LOGOUT</span></a>
 				</div>
 			</div>
 		</div>
