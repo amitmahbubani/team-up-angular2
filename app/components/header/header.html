@@ -37,5 +37,10 @@
 		Confirm Password :<input type="text" [(ngModel)]="signUp.confirmPassword" /><br>
 		<button (click)="emailSignUp()">Sign Up</button>
 	</form>
+	<form>
+		Email :<input type="text" [(ngModel)]="login.email" /><br>
+		Password :<input type="text" [(ngModel)]="login.password" /><br>
+		<button (click)="emailLogin()">Login</button>
+	</form>
 </div>
 <div *ngIf="userService.isAuthorized()">You are Logged In.</div>

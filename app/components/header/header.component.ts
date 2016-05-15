@@ -14,6 +14,10 @@ export class HeaderComponent {
 		password:'',
 		confirmPassword:''
 	}
+	public login = {
+		password: '',
+		email: ''
+	}
 	constructor(public userService: UserService){
 		
 	}
@@ -35,5 +39,16 @@ export class HeaderComponent {
 			password: '',
 			confirmPassword: ''
 		};
+	}
+	emailLogin() {
+		if (this.login.email === '' || this.login.password === '') {
+			alert("Email and Password cannot be left blank.");
+			return;
+		}
+		this.userService.userLogin(this.signUp,'email');
+		this.login = {
+			password: '',
+			email: ''
+		}
 	}
 }
