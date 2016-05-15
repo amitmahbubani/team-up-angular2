@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {UserService} from '../common/user.service'
 @Component({
 	selector: 'header-component',
@@ -20,9 +20,10 @@ export class HeaderComponent {
 		email: ''
 	}
 	public subscription: any;
-	constructor(public userService: UserService){
+	constructor(public userService: UserService, public router:Router){
 		this.subscription = this.userService.getUserLoggedInStatus()
 			.subscribe(item => {
+				console.log("Came Here");
 				this.showLoginModal = false;
 			});
 	}
@@ -45,7 +46,8 @@ export class HeaderComponent {
 			alert("Email and Password cannot be left blank.");
 			return;
 		}
-		this.userService.userLogin(this.login,'email');
+		this.login['type'] = 1;
+		this.userService.userLogin(this.login);
 		this.login = {
 			password: '',
 			email: ''
