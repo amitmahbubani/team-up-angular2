@@ -1,5 +1,6 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {BaseService} from './base.service';
+import {Router} from '@angular/router-deprecated';
 import {Cookie} from './cookie';
 
 declare var FB: any;
@@ -8,7 +9,7 @@ declare var FB: any;
 export class UserService {
 	public selectedInterest = {};
 	public userLogged = new EventEmitter();
-	constructor(private baseService: BaseService){
+	constructor(private baseService: BaseService, private _router: Router) {
 		console.log("User Service Created.")
 	}
 
@@ -16,8 +17,7 @@ export class UserService {
 		return this.baseService.isLoggedIn;
 	}
 
-	userLogin(params: Object, type){
-		params['type'] = type;
+	userLogin(params: Object){
 		var serviceUrl = '/login';
 		return this.baseService.postRequest(serviceUrl, params)
 			.subscribe(data => {
@@ -40,7 +40,9 @@ export class UserService {
 			.subscribe(data => {
 				if (data.success) {
 					Cookie.setCookie('isAuthorized', 'true', 14);
-					this.baseService.isLoggedIn = true;				}
+					this.baseService.isLoggedIn = true;
+					this.emitUserLoggedInEvent();				
+				}
 				else {
 					alert("Something went wrong. Try again.")
 				}
@@ -55,10 +57,10 @@ export class UserService {
 			console.log(response);
 			if (response.status === "connected") {
 				thisObj.userLogin({
-					source: 'facebook',
-					access_token: response.authResponse.accessToken,
+					type: 2,
+					fb_access_token: response.authResponse.accessToken,
 					//referral_code: thisObj.signupInfo.referral_code
-				}, 'social');
+				});
 
 			} else if (response.status === "not_authorized") {
 				return console.error({
@@ -81,5 +83,11 @@ export class UserService {
 
 	getUserLoggedInStatus() {
 		return this.userLogged;
+	}
+	logout(){
+		this._router.navigate(['Home']);
+		Cookie.deleteCookie('auth');
+		Cookie.deleteCookie('isAuthorized');
+		this.baseService.isLoggedIn = false;
 	}
 }
