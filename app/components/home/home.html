@@ -33,7 +33,7 @@
 						</div>
 						<div class="section-header">LOCATION</div>
 						<div class="location-data">{{trend.location}}</div>
-						<div class="join-btn" (click)="joinEvent(trend,i)">JOIN NOW</div>
+						<div class="join-btn" (click)="userService.isAuthorized()?joinEvent(trend,i):(userService.showLoginModal = true)">JOIN NOW</div>
 					</div>
 				</div>
 			</div>

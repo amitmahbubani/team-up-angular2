@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="buttons">
-				<div class="accept-btn" (click)="joinEvent(eventResultSet[currentCount].id)">I AM INTERESTED</div><div class="create-btn" *ngIf="currentCount === (eventResultSet.length-1)" [routerLink]="['CreateEvent']">CREATE EVENT</div><div class="reject-btn" (click)="getNextResult()" *ngIf="currentCount < (eventResultSet.length-1)">NOT INTERESTED</div>
+				<div class="accept-btn" (click)="userService.isAuthorized()?joinEvent(eventResultSet[currentCount].id):userService.showLoginModal = true ">I AM INTERESTED</div><div class="create-btn" *ngIf="currentCount === (eventResultSet.length-1)" [routerLink]="['CreateEvent']">CREATE EVENT</div><div class="reject-btn" (click)="getNextResult()" *ngIf="currentCount < (eventResultSet.length-1)">NOT INTERESTED</div>
 			</div>
 		</div>
 		<div class="next-event">
