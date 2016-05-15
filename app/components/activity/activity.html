@@ -1,6 +1,6 @@
 <div class="activity-container container">
 	<div class="steps-count">
-		<p>STEP 1 OF X</p>
+		<p>STEP 1 OF {{selectedInterest.questions.length || 'X'}}</p>
 	</div>
 	<div class="interest-search-container">
 		<div class="activity-header">
@@ -10,7 +10,8 @@
 		</div>
 		<div class="activity-questions search">
 			<form action="">
-				<div class="question-block" *ngFor="let ques of selectedInterest.questions">
+				<div class="question-block" *ngFor="let ques of selectedInterest.questions;#i=index">
+				<div *ngIf="i===currentCount">
 					<label class="question search-title">{{ques.title}}</label>
 					<div class="search-box">
 						<div class="input-group input-group-lg" *ngIf="ques.type==='text'">
@@ -27,8 +28,9 @@
 			            </label>
 			        </div>
 			    </div>
-			    <div type="button" class="next-btn" (click)="findPartner()">Next</div>
-			    <div type="button" class="next-btn skip-btn" (click)="findPartner()">Skip</div>
+			    </div>
+			    <div type="button" class="next-btn" (click)="nextQues()">Next</div>
+			    <div type="button" class="next-btn skip-btn" (click)="nextQues()">Skip</div>
 			</form>
 		</div>
 	</div>
