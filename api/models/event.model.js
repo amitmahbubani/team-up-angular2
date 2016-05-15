@@ -90,19 +90,29 @@ var event = function () {
 
     obj.getList = function (params, callback) {
         var list = [];
-        var eventData = model('event');
-        var eventIds = Object.keys(eventData);
+        var eventData = model('event')
+            , userEventData = model('user_event')
+            , interestEventData = model('interest_event');
+        var eventIds = (params.interest_id && interestEventData.hasOwnProperty(params.interest_id)) ? Object.keys(interestEventData[params.interest_id]) : Object.keys(eventData);
         var pendingEvents = eventIds.length;
+        var userEvents = params.user_id ? userEventData[params.user_id] : {};
         for (var index in eventIds) {
-            this.get(eventIds[index], function (err, result) {
-                if (!err) {
-                    list.push(result);
-                }
+            if (userEvents.hasOwnProperty(eventIds[index]) && userEvents[eventIds[index]].joined === true) {
                 pendingEvents--;
                 if (pendingEvents === 0) {
                     callback(null, list);
                 }
-            });
+            } else {
+                this.get(eventIds[index], function (err, result) {
+                    if (!err) {
+                        list.push(result);
+                    }
+                    pendingEvents--;
+                    if (pendingEvents === 0) {
+                        callback(null, list);
+                    }
+                });
+            }
         }
     };
 

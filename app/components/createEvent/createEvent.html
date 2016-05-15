@@ -1,19 +1,19 @@
 <div class="create-event-container container">
-	<div class="title text-muted text-uppercase">Create new teamup group</div>
+	<div class="title text-muted text-uppercase">Create new teamup Activity</div>
 	<div class="create-form-container">
 		<div class="form-block">
 			<div class="row">
-				<div class="col-xs-12 block-title">BASE DETAILS</div>
+				<div class="col-xs-12 block-title">BASIC DETAILS</div>
 			</div>
 			<div class="block-input row">
 				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase">ROOM TYPE</label>
+					<label class="form-label text-uppercase" [(ngModel)]="userResponse.title">EVENT TITLE</label>
 					<div class="input-group">
 					  <input type="text" class="form-control">
 					</div>
 				</div>
 				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase">PLAN NAME</label>
+					<label class="form-label text-uppercase" [(ngModel)]="userResponse.description">EVENT DESCRIPTION</label>
 					<div class="input-group">
 					  <input type="text" class="form-control">
 					</div>
@@ -22,17 +22,17 @@
 		</div>
 		<div class="form-block">
 			<div class="row">
-				<div class="col-xs-12 block-title">PRICE DETAILS</div>
+				<div class="col-xs-12 block-title">OTHER DETAILS</div>
 			</div>
 			<div class="block-input row">
 				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase">BASE RATE</label>
+					<label class="form-label text-uppercase" [(ngModel)]="userResponse.location">LOCATION</label>
 					<div class="input-group">
 					  <input type="text" class="form-control">
 					</div>
 				</div>
 				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase">NET AMOUNT</label>
+					<label class="form-label text-uppercase" [(ngModel)]="userResponse.event_start_date">START DATE</label>
 					<div class="input-group">
 					  <input type="text" class="form-control">
 					</div>
@@ -40,13 +40,13 @@
 			</div>
 			<div class="block-input row">
 				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase">SELL RATE</label>
+					<label class="form-label text-uppercase" [(ngModel)]="userResponse.city">CITY</label>
 					<div class="input-group">
 					  <input type="text" class="form-control">
 					</div>
 				</div>
 				<div class="col-xs-6 form-column">
-					<label class="form-label text-uppercase">TOTAL AMOUNT</label>
+					<label class="form-label text-uppercase" [(ngModel)]="userResponse.event_end_date">END DATE</label>
 					<div class="input-group">
 					  <input type="text" class="form-control">
 					</div>

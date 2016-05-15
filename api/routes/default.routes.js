@@ -94,7 +94,7 @@ router.all('/home', function (req, res, next) {
         }
     });
     if (req.parsedParams.user_id) {
-        userModel.userEvents(req.parsedParams.user_id, function(err, result) {
+        userModel.userEvents(req.parsedParams.user_id, function (err, result) {
             if (err) {
                 req.apiResonse.error = err;
             } else {
@@ -119,6 +119,19 @@ router.all('/logout', function (req, res, next) {
     };
     req.is_authorized = false;
     next();
+});
+
+router.all('/interests', function (req, res, next) {
+    interestModel.list(function (err, result) {
+        if (err) {
+            req.apiResponse = {
+                error: err
+            };
+        } else {
+            req.apiResponse = result;
+        }
+        next();
+    });
 });
 
 
