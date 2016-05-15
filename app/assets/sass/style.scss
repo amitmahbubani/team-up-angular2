@@ -80,6 +80,42 @@ body {
   		}
   	}
   }
+
+  .main-title {
+    font-size: 28px;
+    color: #FFFFFF;
+    margin-top: 34px;
+  }
+
+  .sub-title {
+    font-size: 18px;
+    color: #FFFFFF;
+    font-weight: 100;
+    margin-top: 18px; 
+  }
+
+  .signin-spacer {
+    margin-top: 30px;
+  }
+
+  .signin-btn {
+    background: #0CAFEF;
+    border-radius: 3px;
+    width: 40px;
+    padding: 10px 26px;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+
+  .signin-btn:hover {
+    transition-property: all;
+    transition-duration: .6s;
+    transition-timing-function: ease;
+    background: rgba(12,175,239,0.6);
+    cursor: pointer;
+  }
 }
 
 
