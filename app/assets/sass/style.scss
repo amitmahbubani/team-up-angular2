@@ -25,7 +25,8 @@ body {
 }
 
 .header {
-  // background: url('/app/assets/images/banner-image.png') no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('/app/assets/images/banner.jpg') no-repeat center center;
+  background-position-x: 0;
   width: 100%;
   height: $header-height;
   z-index: -1;
@@ -73,11 +74,47 @@ body {
   		a:hover .nav-link {
   			font-size: 12px;
   			color: #AACEFF;
-  			border: 1px solid #AACEFF;
-        border-radius: 2px;
+  			border: 1px solid #0CAFEF;
+        border-radius: 4px;
   			text-decoration: none;
   		}
   	}
+  }
+
+  .main-title {
+    font-size: 28px;
+    color: #FFFFFF;
+    margin-top: 34px;
+  }
+
+  .sub-title {
+    font-size: 18px;
+    color: #FFFFFF;
+    font-weight: 100;
+    margin-top: 18px; 
+  }
+
+  .signin-spacer {
+    margin-top: 30px;
+  }
+
+  .signin-btn {
+    background: #0CAFEF;
+    border-radius: 3px;
+    width: 40px;
+    padding: 10px 26px;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+
+  .signin-btn:hover {
+    transition-property: all;
+    transition-duration: .6s;
+    transition-timing-function: ease;
+    background: rgba(12,175,239,0.6);
+    cursor: pointer;
   }
 }
 
