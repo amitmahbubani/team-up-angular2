@@ -1,7 +1,11 @@
 var userModel = require('./user.model')
-    , cityModel = require('./city.model')
-    , utils = require(__dirname + '/../utils');
+    , cityModel = require('./city.model');
 var event = function () {
+
+    function sortEvents(events, comparator) {
+        return events.sort(comparator);
+    }
+
     var obj = {
         exists: function (id) {
             var eventData = model('event');
@@ -238,6 +242,38 @@ var event = function () {
             callback({
                 err: "Either event does not exists or organiser id is not found",
                 msg: "Invalid event"
+            });
+        }
+    };
+
+    obj.trendingEvents = function (params, callback) {
+        var noOfResults = params.count || 6
+            , eventUserData = model('event_user');
+
+        var trendingEvents = [];
+        for (eventId in eventUserData) {
+            trendingEvents.push({
+                eventId: eventId,
+                numberOfUsers: Object.keys(eventUserData[eventId]).length
+            });
+        }
+        trendingEvents = sortEvents(trendingEvents, function (a, b) {
+            return a.numberOfUsers - b.numberOfUsers;
+        });
+        trendingEvents = trendingEvents.slice(0, noOfResults);
+
+        var pendingRequests = Object.keys(eventUserData).length;
+        var events =[];
+        for(index in trendingEvents) {
+            var eventId = trendingEvents[index].eventId;
+            this.get(eventId, function (err, result) {
+                pendingRequests--;
+                if (!err) {
+                    events.push(result);
+                }
+                if (pendingRequests === 0) {
+                    callback(null, events);
+                }
             });
         }
     };
