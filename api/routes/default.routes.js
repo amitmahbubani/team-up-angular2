@@ -80,16 +80,33 @@ router.all('/login', function (req, res, next) {
 });
 
 router.all('/home', function (req, res, next) {
+    var pendingRequests = 2 - (req.parsedParams.user_id ? 0 : 1);
+    req.apiResponse = {};
     eventModel.trendingEvents({}, function (err, result) {
         if (err) {
-            req.apiResonse = {
-                error: err
-            };
+            req.apiResonse.error = err;
         } else {
-            req.apiResponse = result;
+            req.apiResponse.trending_events = result;
         }
-        next();
-    })
+        pendingRequests--;
+        if (pendingRequests === 0) {
+            next();
+        }
+    });
+    if (req.parsedParams.user_id) {
+        userModel.userEvents(req.parsedParams.user_id, function(err, result) {
+            if (err) {
+                req.apiResonse.error = err;
+            } else {
+                req.apiResponse.user_events = result;
+            }
+            pendingRequests--;
+            if (pendingRequests === 0) {
+                next();
+            }
+        });
+    }
+
 });
 
 module.exports = router;
