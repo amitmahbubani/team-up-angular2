@@ -61,7 +61,7 @@ var user = function () {
     obj.register = function (params, callback) {
         var userId = this.getUserIdByEmail(params.email);
         if (userId !== false) {
-            if(params.type === this.LOGIN_TYPE.normal) {
+            if (params.type === this.LOGIN_TYPE.normal) {
                 return callback({
                     err: "User already registered",
                     msg: "User already exists"
@@ -110,13 +110,18 @@ var user = function () {
     obj.login = function (params, callback) {
         var userId = this.getUserIdByEmail(params.email);
         if (userId !== false) {
+            var user = model('user')[userId];
 
-            return callback(null, {
-                is_new_user: false,
-                user_id: userId
-            });
-        } else {
-
+            if (user.password !== params.password) {
+                return callback({
+                    err: "Password do not match, email present",
+                    msg: "Invalid credentials"
+                });
+            } else {
+                return callback(null, {
+                    user_id: userId
+                });
+            }
         }
     };
 

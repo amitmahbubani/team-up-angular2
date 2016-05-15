@@ -28,7 +28,23 @@ router.all('/search', function (req, res, next) {
 
 router.all('/register', function (req, res, next) {
     var params = req.parsedParams;
-    console.log(params);
+    params.type = userModel.LOGIN_TYPE.normal;
+    userModel.register(params, function (err, result) {
+        if (err) {
+            req.apiResponse = {
+                error: err
+            };
+        } else {
+            userModel.setSession(result.user_id, params.access_token);
+            delete result.user_id;
+            req.apiResponse = result;
+        }
+        next();
+    });
+});
+
+router.all('/login', function (req, res, next) {
+    var params = req.parsedParams;
     if (params.type == userModel.LOGIN_TYPE.fb) {
         userModel.facebookLogin(params, function (err, result) {
             if (err) {
@@ -45,14 +61,21 @@ router.all('/register', function (req, res, next) {
     } else if (params.type === userModel.LOGIN_TYPE.google) {
 
     } else if (params.type === userModel.LOGIN_TYPE.normal) {
-
+        userModel.login(params, function (err, result) {
+            if(err) {
+                req.apiResponse = {
+                    error: err
+                }
+            } else {
+                userModel.setSession(result.user_id, params.access_token);
+                delete result.user_id;
+                req.apiResponse = result;
+            }
+            next();
+        });
     } else {
         next();
     }
-});
-
-router.all('/login', function (req, res, next) {
-
 });
 
 module.exports = router;

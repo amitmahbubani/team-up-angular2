@@ -101,8 +101,7 @@ module.exports = {
                 return session[token];
             },
             reload: function () {
-                var res = fs.writeFileSync(__dirname + '/data/session.json', JSON.stringify(session, null, '  '));
-                console.log(res);
+                fs.writeFileSync(__dirname + '/data/session.json', JSON.stringify(session, null, '  '));
             }
         };
         sessionObj.setSession = function (token, userId) {

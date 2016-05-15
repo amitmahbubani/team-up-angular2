@@ -17,15 +17,15 @@ app.listen(config.port, function (err) {
     if (err) {
         return console.log("Server init error ", err);
     }
-    createMysqlConnection(function (err) {
-        "use strict";
-        if (err) {
-            utils.logMessage('Mysql Connection failed');
-            process.exit();
-        } else {
-            utils.logMessage('Mysql connected');
-        }
-    });
+    // createMysqlConnection(function (err) {
+    //     "use strict";
+    //     if (err) {
+    //         utils.logMessage('Mysql Connection failed');
+    //         process.exit();
+    //     } else {
+    //         utils.logMessage('Mysql connected');
+    //     }
+    // });
 
     console.log("Server initiated at: " + config.port);
 });
@@ -83,6 +83,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    res.set('Content-Type', 'application/json');
     if (req.method === 'OPTIONS') {
         res.sendStatus(200);
     } else {
@@ -118,11 +119,6 @@ app.use(function (req, res, next) {
     } else {
         req.is_authorized = false;
     }
-    /*
-     To remove
-     */
-    // req.is_authorized = true;
-    // req.parsedParams.user_id = 2;
     next();
 });
 app.use('/', publicRoutes);
