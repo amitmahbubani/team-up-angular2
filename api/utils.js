@@ -109,6 +109,11 @@ module.exports = {
             session[userId] = token;
             this.reload();
         };
+        sessionObj.deleteSession = function(key) {
+            delete session[session[key]], session[key];
+            this.reload();
+        };
+
         return sessionObj;
     }
 };

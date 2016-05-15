@@ -106,7 +106,20 @@ router.all('/home', function (req, res, next) {
             }
         });
     }
-
 });
+
+router.all('/logout', function (req, res, next) {
+    var previouslyPresent = false;
+    if (userSessions.getFromId(req.parsedParams.user_id)) {
+        userSessions.deleteSession(req.parsedParams.user_id);
+        previouslyPresent = true;
+    }
+    req.apiResponse = {
+        was_logged_in: previouslyPresent
+    };
+    req.is_authorized = false;
+    next();
+});
+
 
 module.exports = router;
