@@ -89,5 +89,6 @@ export class UserService {
 		Cookie.deleteCookie('auth');
 		Cookie.deleteCookie('isAuthorized');
 		this.baseService.isLoggedIn = false;
+		this.emitUserLoggedInEvent();
 	}
 }

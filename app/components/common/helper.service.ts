@@ -10,4 +10,8 @@ export class HelperService {
 		var serviceUrl: string = '/search?q=' +query ;
 		return this.baseService.getRequest(serviceUrl, params);
 	}
+	getHomePageData(params: Object = null) {
+		var serviceUrl: string = '/home';
+		return this.baseService.getRequest(serviceUrl, params);
+	}
 }

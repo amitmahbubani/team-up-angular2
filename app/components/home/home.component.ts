@@ -12,8 +12,16 @@ import {UserService} from '../common/user.service'
 export class HomeComponent {
   public searchQuery = '';
   public interestData = {};
+  public trendingActivities = [];
+  public userJoinedActivities = [];
+  public subscription: any;
 	constructor(private helperService: HelperService, private router:Router, private userService:UserService){
-	}
+    this.getHomePageData();
+    this.subscription = this.userService.getUserLoggedInStatus()
+      .subscribe(item => {
+        this.getHomePageData();
+      });
+  }
 	getMachingInterest() {
     this.helperService.getMachingInterest(this.searchQuery).subscribe(
       data => {
@@ -23,6 +31,20 @@ export class HomeComponent {
           this.router.navigate(['Activity']);
         } else {
          //TBD
+        }
+      },
+      err => {
+        console.log('Error Occured', err);
+      }
+    );
+  }
+
+  getHomePageData() {
+    this.helperService.getHomePageData(this.searchQuery).subscribe(
+      data => {
+        if (data.success) {
+        } else {
+          //TBD
         }
       },
       err => {
