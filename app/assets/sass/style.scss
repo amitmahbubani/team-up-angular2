@@ -1,9 +1,12 @@
 $header-height: 308px;
 $footer-height: 60px;
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700);
+
 html,
 body {
   height: 100%;
+  font-family: 'Open Sans', sans-serif !important;
 }
 
 .page-wrap {
@@ -313,18 +316,51 @@ body {
 }
 
 .interest-search-container {
-  border: 1px solid #aaa;
+  border: 1px solid #E2E2E2;
   padding: 20px 30px;
   padding-bottom: 60px;
-  -webkit-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
-  -moz-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
-  box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.4);
+  -webkit-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.3);
+  -moz-box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.3);
+  box-shadow: -1px 0px 8px -1px rgba(0,0,0,0.3);
   border-radius: 2px;
+}
+
+.sample-interest-title {
+  font-size: 12px;
+  font-weight: 400;
+  color: #868686;
+  margin-top: 50px;
+}
+
+.interest-list {
+  margin-top: 10px;
+  .interest {
+    padding: 10px 25px;
+    background-color: #FBFBFB;
+    color: #B8B8B8;
+    font-size: 12px;
+    display: inline-block;
+    font-weight: 400;
+    margin-right: 20px;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: .4s;
+    transition-timing-function: ease;
+  }
+
+  .interest:hover {
+    -webkit-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+    box-shadow: 2px 2px 14px 0px rgba(0,0,0,0.26);
+    transition-property: all;
+    transition-duration: .4s;
+    transition-timing-function: ease;
+  }
 }
 
 .search {
   .search-title {
-    font-size: 22px;
+    font-size: 20px;
     color: #888;
   }
 
@@ -338,7 +374,7 @@ body {
   }
 
   .next-btn {
-    width: 100px;
+    width: 135px;
     text-align: center;
     display: inline-block;
     margin-right: 20px;

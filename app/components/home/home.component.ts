@@ -13,6 +13,7 @@ import {EventService} from '../common/event.service';
 export class HomeComponent {
   public searchQuery = '';
   public interestData = {};
+  public interests = [];
   public trendingEvents = [];
   public userJoinedEvents = [];
   public subscription: any;
@@ -23,8 +24,11 @@ export class HomeComponent {
         this.getHomePageData();
       });
   }
-	getMachingInterest() {
-    this.helperService.getMachingInterest(this.searchQuery).subscribe(
+	getMachingInterest(searchKey = null) {
+    if(searchKey === null) {
+      searchKey = this.searchQuery;
+    }
+    this.helperService.getMachingInterest(searchKey).subscribe(
       data => {
         if (data.success) {
           this.interestData = data.response;
@@ -44,6 +48,7 @@ export class HomeComponent {
     this.helperService.getHomePageData(this.searchQuery).subscribe(
       data => {
         if (data.success) {
+          this.interests = data.response.interests || [];
           this.trendingEvents = data.response.trending_events || [];
           if(this.userService.isAuthorized()){
             this.userJoinedEvents = data.response.user_events || [];
