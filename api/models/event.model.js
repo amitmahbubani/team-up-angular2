@@ -3,70 +3,84 @@ var userModel = require('./user.model')
     , utils = require(__dirname + '/../utils');
 var event = function () {
     var obj = {
-        get: function (id, callback) {
-            var eventData = model('event')
-                , eventUserData = model('event_user');
+        exists: function (id) {
+            var eventData = model('event');
+            return eventData.hasOwnProperty(id);
+        }
+    };
 
-            var event = {};
-            if (eventData.hasOwnProperty(id)) {
-                var pendingRequests = 2 + Object.keys(eventUserData[id]).length;
-                event = eventData[id];
-                event.id = id;
+    obj.getRaw = function (id) {
+        if (this.exists(id)) {
+            var eventData = model('event');
+            return eventData[id];
+        } else {
+            return false
+        }
+    };
 
-                var blockedMembers = event.blocked_members;
-                var organiserId = event.organiser_id;
-                var cityId = event.city_id;
+    obj.get = function (id, callback) {
+        var eventData = model('event')
+            , eventUserData = model('event_user');
 
-                delete event.organiser_id;
-                delete event.city_id;
+        var event = {};
+        if (eventData.hasOwnProperty(id)) {
+            var pendingRequests = 2 + Object.keys(eventUserData[id]).length;
+            event = eventData[id];
+            event.id = id;
 
-                event.blocked_members = [];
-                event.approved_members = [];
-                event.requested_members = [];
-                event.organiser = {};
-                event.city = {};
+            var blockedMembers = event.blocked_members;
+            var organiserId = event.organiser_id;
+            var cityId = event.city_id;
 
-                userModel.profile(organiserId, function (err, result) {
-                    if (!err) {
-                        event.organiser = result;
-                    }
-                    pendingRequests--;
-                    if (pendingRequests === 0) {
-                        callback(null, event);
-                    }
-                });
-                cityModel.get(cityId, function (err, result) {
-                    if (!err) {
-                        event.city = result;
-                    }
-                    pendingRequests--;
-                    if (pendingRequests === 0) {
-                        callback(null, event);
-                    }
-                });
-                for (userId in eventUserData[id]) {
-                    userModel.profile(userId, function (err, result) {
-                        if (!err) {
-                            if (blockedMembers.hasOwnProperty(result.id)) {
-                                event.blocked_members.push(result);
-                            } else if (eventUserData[id][result.id].request_pending === true) {
-                                event.requested_members.push(result);
-                            } else if (eventUserData[id][result.id].joined === true) {
-                                event.approved_members.push(result);
-                            }
-                        }
-                        pendingRequests--;
-                        if (pendingRequests === 0) {
-                            callback(null, event);
-                        }
-                    });
+            delete event.organiser_id;
+            delete event.city_id;
+
+            event.blocked_members = [];
+            event.approved_members = [];
+            event.requested_members = [];
+            event.organiser = {};
+            event.city = {};
+
+            userModel.profile(organiserId, function (err, result) {
+                if (!err) {
+                    event.organiser = result;
                 }
-            } else {
-                return callback({
-                    err: "No such user found",
-                    msg: "Invalid user"
+                pendingRequests--;
+                if (pendingRequests === 0) {
+                    callback(null, event);
+                }
+            });
+            cityModel.get(cityId, function (err, result) {
+                if (!err) {
+                    event.city = result;
+                }
+                pendingRequests--;
+                if (pendingRequests === 0) {
+                    callback(null, event);
+                }
+            });
+            for (userId in eventUserData[id]) {
+                userModel.profile(userId, function (err, result) {
+                    if (!err) {
+                        if (blockedMembers.hasOwnProperty(result.id)) {
+                            event.blocked_members.push(result);
+                        } else if (eventUserData[id][result.id].request_pending === true) {
+                            event.requested_members.push(result);
+                        } else if (eventUserData[id][result.id].joined === true) {
+                            event.approved_members.push(result);
+                        }
+                    }
+                    pendingRequests--;
+                    if (pendingRequests === 0) {
+                        callback(null, event);
+                    }
                 });
             }
+        } else {
+            return callback({
+                err: "No such user found",
+                msg: "Invalid user"
+            });
         }
     };
 
@@ -157,6 +171,51 @@ var event = function () {
         callback(null, {
             success: true
         });
+    };
+
+    obj.requestEvent = function (id, user_id, callback) {
+        var event = this.getRaw(id);
+        if (event.organiser_id && event.organiser_id != user_id) {
+            if (event.blocked_members.hasOwnProperty(user_id)) {
+                callback({
+                    err: "You don't have an access to join this activity",
+                    msg: "Action unauthorized"
+                });
+            } else {
+                var obj = {
+                    "joined": false,
+                    "request_pending": true,
+                    "rating": 1
+                };
+
+                utils.updateFileObj(id, user_id, obj, 'event_user', function (err) {
+                    if (err) {
+                        callback({
+                            err: err,
+                            msg: "Unable to request"
+                        });
+                    } else {
+                        utils.updateFileObj(user_id, id, obj, 'user_event', function (err) {
+                            if (err) {
+                                callback({
+                                    err: err,
+                                    msg: "Unable to request"
+                                });
+                            } else {
+                                callback(null, {
+                                    success: true
+                                });
+                            }
+                        });
+                    }
+                })
+            }
+        } else {
+            callback({
+                err: "Either event does not exists or organiser id is not found",
+                msg: "Invalid event"
+            });
+        }
     };
 
     return obj;

@@ -114,9 +114,9 @@ app.use(function (req, res, next) {
     /*
      To remove
      */
-    req.is_authorized = true
-    req.parsedParams.user_id = 1;
-    next();
+    // req.is_authorized = true
+    // req.parsedParams.user_id = 2;
+    // next();
 });
 app.use('/', publicRoutes);
 app.use('/user', userRoutes);
