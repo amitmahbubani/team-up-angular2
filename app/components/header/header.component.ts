@@ -19,8 +19,12 @@ export class HeaderComponent {
 		password: '',
 		email: ''
 	}
+	public subscription: any;
 	constructor(public userService: UserService){
-		
+		this.subscription = this.userService.getUserLoggedInStatus()
+			.subscribe(item => {
+				this.showLoginModal = false;
+			});
 	}
 	emailSignUp(){
 		if(this.signUp.name === '' || this.signUp.email === ''){

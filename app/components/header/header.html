@@ -7,8 +7,8 @@
 				</div>
 				<div class="nav-links">
 					<a [routerLink]="['CreateEvent']"><span class="nav-link">CREATE A TEAM</span></a>
-					<a (click)="showLoginModal=true"><span class="nav-link">LOGIN</span></a>
-					<a href=""><span class="nav-link">SIGNUP</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=true" style="cursor: pointer;"><span class="nav-link">LOGIN</span></a>
+					<a (click)="showLoginModal=true;showLoginSection=false" style="cursor: pointer;"><span class="nav-link">SIGNUP</span></a>
 				</div>
 			</div>
 		</div>
